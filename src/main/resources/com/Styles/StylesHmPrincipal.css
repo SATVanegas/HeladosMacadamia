@@ -1,0 +1,7 @@
+.selected{
+    -fx-background-color: #F4F5F9;
+}
+
+.mouse-moved:hover{
+    -fx-background-color: #EFEFEF;
+}
