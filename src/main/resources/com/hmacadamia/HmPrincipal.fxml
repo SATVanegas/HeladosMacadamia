@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.HmPrincipalController">
    <children>
       <TabPane prefHeight="768.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -46,6 +47,20 @@
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                           </rowConstraints>
+                           <children>
+                              <ScrollPane prefHeight="583.0" prefWidth="680.0">
+                                 <content>
+                                    <GridPane fx:id="GridProductos">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
                         </GridPane>
                         <TextField layoutX="52.0" layoutY="40.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
                         <ChoiceBox layoutX="324.0" layoutY="47.0" prefWidth="150.0" />
