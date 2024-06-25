@@ -59,7 +59,7 @@ public class HmPrincipalController implements Initializable {
         pm.setCantidadSeleccionado(2);
         ls.add(pm);
         ProductosMostrar kj = new ProductosMostrar();
-        kj.setProductoImage("/com/ImagenesProductos/4.jpg"); // Ajusta la ruta aquí
+        kj.setProductoImage("/com/ImagenesProductos/1.jpg"); // Ajusta la ruta aquí
         kj.setId("123");
         kj.setPrecio(2000.0);
         kj.setCantidadRestante(2);
@@ -67,7 +67,7 @@ public class HmPrincipalController implements Initializable {
         ls.add(kj);
 
         ProductosMostrar lk = new ProductosMostrar();
-        lk.setProductoImage("/com/ImagenesProductos/2.jpg"); // Ajusta la ruta aquí
+        lk.setProductoImage("/com/ImagenesProductos/1.jpg"); // Ajusta la ruta aquí
         lk.setId("123");
         lk.setPrecio(2000.0);
         lk.setCantidadRestante(2);
@@ -75,7 +75,7 @@ public class HmPrincipalController implements Initializable {
         ls.add(lk);
 
         ProductosMostrar jkdsj = new ProductosMostrar();
-        jkdsj.setProductoImage("/com/ImagenesProductos/3.jpg"); // Ajusta la ruta aquí
+        jkdsj.setProductoImage("/com/ImagenesProductos/1.jpg"); // Ajusta la ruta aquí
         jkdsj.setId("123");
         jkdsj.setPrecio(2000.0);
         jkdsj.setCantidadRestante(2);
