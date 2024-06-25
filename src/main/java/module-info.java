@@ -3,7 +3,6 @@ module com.hmacadamia {
     requires javafx.fxml;
     requires java.desktop;
 
-
-    opens com.hmacadamia to javafx.fxml;
-    exports com.hmacadamia;
+    exports com.hmacadamia.controllers;
+    opens com.hmacadamia.controllers to javafx.fxml;
 }

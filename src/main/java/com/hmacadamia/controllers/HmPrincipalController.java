@@ -1,4 +1,4 @@
-package com.hmacadamia;
+package com.hmacadamia.controllers;
 
 import com.hmacadamia.Models.ProductosMostrar;
 import javafx.fxml.FXML;

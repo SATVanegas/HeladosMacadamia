@@ -1,4 +1,4 @@
-package com.hmacadamia;
+package com.hmacadamia.controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HmPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/com/hmacadamia/HmPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
         stage.setTitle("Hello!");
         stage.setScene(scene);
