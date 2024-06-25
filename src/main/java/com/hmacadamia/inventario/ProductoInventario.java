@@ -7,14 +7,24 @@ public class ProductoInventario {
     private String nombre;
     private double precio;
     private int cantidadInventario;
+    private String urlimg;
     private Date ultimaFechadeActualizacion;
 
-    public ProductoInventario(int id, String nombre, double precio, int cantidad, Date ultimaFechadeActualizacion) {
+    public ProductoInventario(int id, String nombre, double precio, int cantidad, String urlimg, Date ultimaFechadeActualizacion) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.cantidadInventario = cantidad;
+        this.urlimg = urlimg;
         this.ultimaFechadeActualizacion = ultimaFechadeActualizacion;
+    }
+
+    public String getUrlimg() {
+        return urlimg;
+    }
+
+    public void setUrlimg(String urlimg) {
+        this.urlimg = urlimg;
     }
 
     public int getId() {
