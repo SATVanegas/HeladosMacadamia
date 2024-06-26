@@ -1,5 +1,6 @@
 package com.hmacadamia.pos;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,12 @@ public class Factura {
         this.total = 0.0;
     }
 
-    public void agregarItem(int id, String descripcion, int cantidad, double precioUnitario) {
+    public void agregarItem(int id, String descripcion, int cantidad, double precioUnitario, double subtotal) {
         ProductoVenta item = new ProductoVenta(id,descripcion, precioUnitario, cantidad);
         items.add(item);
-        total += item.getSubtotal();
+        total += subtotal;
     }
+
 
     public String getNumeroFactura() {
         return numeroFactura;
@@ -39,7 +41,13 @@ public class Factura {
         return total;
     }
 
+    private String formatNumber(double value) {
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        return formatter.format(value);
+    }
+
     public String generarFormatoFactura() {
+
 
         StringBuilder sb = new StringBuilder();
         sb.append("Empresa: ").append("Helados Macadamia").append("\n");
@@ -52,8 +60,9 @@ public class Factura {
         sb.append("-------------------------------\n");
 
         for (ProductoVenta item : items) {
+            double subtotal = item.getPrecio() * item.getCantidad();
             sb.append(String.format("%-15s %3d %6.2f %7.2f\n",
-                    item.getDescripcion(), item.getCantidad(), item.getPrecio(), item.getSubtotal()));
+                    item.getDescripcion(), item.getCantidad(), item.getPrecio(), subtotal));
         }
 
         sb.append("-------------------------------\n");

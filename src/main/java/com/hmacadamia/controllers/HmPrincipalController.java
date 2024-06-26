@@ -1,4 +1,5 @@
 package com.hmacadamia.controllers;
+import com.hmacadamia.pos.Factura;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
@@ -49,10 +50,12 @@ public class HmPrincipalController implements Initializable {
     private Label LbTotal;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnFacturar;
 
     protected static List<ProductoVenta> productos;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
-    private final ObservableList<ProductoVenta> observableSalesList = FXCollections.observableArrayList();
+    private final ObservableList<ProductoVenta> observablePvList = FXCollections.observableArrayList();
     RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
 
     @Override
@@ -81,7 +84,7 @@ public class HmPrincipalController implements Initializable {
             }
         });
 
-        tableView.setItems(observableSalesList); // Inicializar la tabla con la lista observable
+        tableView.setItems(observablePvList); // Inicializar la tabla con la lista observable
 
         //manejador de evento para boton delete
         btnDelete.setOnAction(_ -> eliminarProductoSeleccionado());
@@ -201,7 +204,7 @@ public class HmPrincipalController implements Initializable {
     // Método para agregar o actualizar un producto en el controlador principal
     public void addOrUpdateProducto(ProductoVenta producto) {
         boolean exists = false;
-        for (ProductoVenta existingProducto : observableSalesList) {
+        for (ProductoVenta existingProducto : observablePvList) {
             if (existingProducto.getId() == producto.getId()) {
                 existingProducto.setCantidad(existingProducto.getCantidad() + 1);
                 existingProducto.setSubtotal(existingProducto.getSubtotal() + producto.getPrecio());
@@ -212,15 +215,35 @@ public class HmPrincipalController implements Initializable {
         if (!exists) {
             producto.setCantidad(1);
             producto.setSubtotal(producto.getPrecio());
-            observableSalesList.add(producto);
+            observablePvList.add(producto);
         }
         tableView.refresh();
         updateTotal(); // Actualizar el total después de agregar o actualizar un producto
     }
 
+    @FXML
+    private void handleFacturar() {
+        List<ProductoVenta> listaFacturar = new ArrayList<>(tableView.getItems());
+        Factura fc = new Factura("1", "6/26/2024");
+
+        for (ProductoVenta producto : listaFacturar) {
+            long id = producto.getId();
+            String descripcion = producto.getDescripcion();
+            int cantidad = producto.getCantidad();
+            double precio = producto.getPrecio();
+            double subtotal = producto.getSubtotal();
+
+            fc.agregarItem((int) id, descripcion, cantidad, precio, subtotal);
+        }
+
+        // Aquí puedes proceder con la lógica adicional de facturación si es necesario
+        System.out.println(fc.generarFormatoFactura());
+    }
+
+
     private void updateTotal() {
         // Variable para almacenar el total de los subtotales
-        double total = observableSalesList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
+        double total = observablePvList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
         LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
     }
 
@@ -229,7 +252,7 @@ public class HmPrincipalController implements Initializable {
     private void eliminarProductoSeleccionado() {
         ProductoVenta selectedProducto = tableView.getSelectionModel().getSelectedItem();
         if (selectedProducto != null) {
-            observableSalesList.remove(selectedProducto);
+            observablePvList.remove(selectedProducto);
             tableView.refresh();
             updateTotal(); // Actualizar el total después de eliminar un producto
         }
