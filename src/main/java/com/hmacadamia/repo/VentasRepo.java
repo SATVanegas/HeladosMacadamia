@@ -23,7 +23,7 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
 
 
         try (Statement st = getConnection().createStatement();
-             ResultSet rs = st.executeQuery("select * from customers")) {
+             ResultSet rs = st.executeQuery("select * from ventas")) {
 
             while (rs.next()) {
                 Venta venta = getVenta(rs);

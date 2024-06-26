@@ -15,7 +15,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -113,13 +112,13 @@ public class HmPrincipalController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            for (int i = 0; i < products.size(); i++) {
+            for (ProductosMostrar product : products) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
                 VBox productosBox = fxmlLoader.load();
                 ProductosController productosController = fxmlLoader.getController();
-                productosController.setData(products.get(i));
+                productosController.setData(product);
 
                 if (columns == 3) {
                     columns = 0;

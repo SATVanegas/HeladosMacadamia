@@ -13,6 +13,9 @@ public class Producto {
         this.urlimg = urlimg;
     }
 
+    public Producto() {
+    }
+
     public Producto(int id, String descripcion, double precio) {
         this.id = id;
         this.descripcion = descripcion;

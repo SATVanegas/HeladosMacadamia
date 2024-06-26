@@ -18,6 +18,11 @@ public class ProductoVenta extends Producto {
         this.cantidad = cantidad;
     }
 
+    public ProductoVenta() {
+
+    }
+
+
     public double getSubtotal() {
         return this.cantidad * super.getPrecio();
     }
