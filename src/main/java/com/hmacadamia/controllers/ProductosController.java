@@ -1,13 +1,13 @@
 package com.hmacadamia.controllers;
 
-import com.hmacadamia.Models.ProductosMostrar;
 import com.hmacadamia.pos.ProductoVenta;
+import com.hmacadamia.repo.ProductosRepo;
+import com.hmacadamia.repo.RepositorioGenerico;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.Objects;
@@ -28,6 +28,8 @@ public class ProductosController implements Initializable {
 
     @FXML
     private Label lblPrecio;
+
+    RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
 
     public void setData(ProductoVenta productos) {
         try {
@@ -53,7 +55,11 @@ public class ProductosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println("ImageView clicked! " +lbID.getText());
+            ProductoVenta pv = new ProductoVenta();
+            pv = repoProductos.searchById(HmPrincipalController.productos, Long.valueOf(lbID.getText()));
+            pv.setCantidad();
+            System.out.println("ImageView clicked! " + pv.getCantidad());
+            System.out.println(pv.getSubtotal());
         });
     }
 }

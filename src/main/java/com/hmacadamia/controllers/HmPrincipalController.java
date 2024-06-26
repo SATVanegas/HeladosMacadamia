@@ -1,6 +1,4 @@
 package com.hmacadamia.controllers;
-
-import com.hmacadamia.Models.ProductosMostrar;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
@@ -18,7 +16,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private TextField txtBuscadorF;
 
-    private List<ProductoVenta> productos;
+    protected static List<ProductoVenta> productos;
 
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
 
@@ -145,7 +142,6 @@ public class HmPrincipalController implements Initializable {
     private List<ProductoVenta> data() {
         RepositorioGenerico<ProductoVenta> repoclientes = new ProductosRepo();
         List<ProductoVenta> ls = repoclientes.findall();
-
         return ls;
     }
 

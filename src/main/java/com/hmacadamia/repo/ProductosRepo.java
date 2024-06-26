@@ -36,8 +36,29 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
     }
 
     @Override
-    public ProductoVenta searchbyid(Long id) {
+    public ProductoVenta searchById(Long id) {
         return null;
+    }
+
+    @Override
+    public ProductoVenta searchById(List<ProductoVenta> l, Long id) {
+        int left = 0;
+        int right = l.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int midId = l.get(mid).getId();
+
+            if (midId == id) {
+                return l.get(mid);
+            } else if (midId < id) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return null; // Si no se encuentra el producto
     }
 
     @Override

@@ -32,6 +32,10 @@ public class ProductoVenta extends Producto {
         return cantidad;
     }
 
+    public void setCantidad() {
+        this.cantidad++;
+    }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }

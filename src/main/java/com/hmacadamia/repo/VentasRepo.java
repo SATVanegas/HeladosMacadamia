@@ -38,7 +38,12 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
     }
 
     @Override
-    public Venta searchbyid(Long id) {
+    public Venta searchById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Venta searchById(List<Venta> l, Long id) {
         return null;
     }
 
