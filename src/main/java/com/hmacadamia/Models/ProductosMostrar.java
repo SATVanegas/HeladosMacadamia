@@ -2,7 +2,7 @@ package com.hmacadamia.Models;
 
 public class ProductosMostrar {
     private String ProductoImage;
-    private int id;
+    private String id;
 
     private String Descripcion;
 
@@ -18,11 +18,11 @@ public class ProductosMostrar {
         ProductoImage = productoImage;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

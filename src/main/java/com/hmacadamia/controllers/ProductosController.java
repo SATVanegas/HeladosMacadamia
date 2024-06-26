@@ -1,6 +1,7 @@
 package com.hmacadamia.controllers;
 
 import com.hmacadamia.Models.ProductosMostrar;
+import com.hmacadamia.pos.ProductoVenta;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -28,9 +29,9 @@ public class ProductosController implements Initializable {
     @FXML
     private Label lblPrecio;
 
-    public void setData(ProductosMostrar productos) {
+    public void setData(ProductoVenta productos) {
         try {
-            Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(productos.getProductoImage())));
+            Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(productos.getUrlimg())));
             image.setImage(image1);
 
             // Ajustes adicionales para la imagen
@@ -41,7 +42,7 @@ public class ProductosController implements Initializable {
 
             lbID.setText(String.valueOf(productos.getId()));
             lblDescripcion.setText(productos.getDescripcion());
-            lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidadSeleccionado()));
+            lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidad()));
             lblPrecio.setText(String.valueOf(productos.getPrecio()));
         } catch (NullPointerException e) {
             System.err.println("Error: No se encontró la imagen en la ruta especificada.");

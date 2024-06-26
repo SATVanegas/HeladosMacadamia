@@ -34,18 +34,16 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private TextField txtBuscadorF;
 
-    private List<ProductosMostrar> productos;
+    private List<ProductoVenta> productos;
 
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
-
-    RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupSearchFieldListener();
         setupSuggestionsListListener();
 
-        productos = new ArrayList<>(loadDataFromRepo());
+        productos = new ArrayList<>(data());
         showAllProducts();
     }
 
@@ -55,11 +53,11 @@ public class HmPrincipalController implements Initializable {
                 showAllProducts();
                 suggestionsList.setVisible(false);
             } else {
-                List<Integer> filtered = productos.stream()
-                        .map(ProductosMostrar::getId)
-                        .filter(id -> id.toString().toLowerCase().startsWith(newValue.toLowerCase()))
-                        .toList();
-                suggestions.setAll(String.valueOf(filtered));
+                List<String> filtered = productos.stream()
+                        .map(producto -> String.valueOf(producto.getId()))  // Convertir ID a String
+                        .filter(id -> id.toLowerCase().startsWith(newValue.toLowerCase()))
+                        .collect(Collectors.toList());
+                suggestions.setAll(filtered);
                 suggestionsList.setVisible(!filtered.isEmpty());
             }
         });
@@ -84,6 +82,7 @@ public class HmPrincipalController implements Initializable {
         });
     }
 
+
     private void showAllProducts() {
         updateGridPane(productos);
     }
@@ -107,25 +106,25 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void performSearch(String query) {
-        List<ProductosMostrar> filteredProducts = productos.stream()
+        List<ProductoVenta> filteredProducts = productos.stream()
                 .filter(producto -> Integer.toString(producto.getId()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
 
 
-    private void updateGridPane(List<ProductosMostrar> products) {
+    private void updateGridPane(List<ProductoVenta> products) {
         GridProductos.getChildren().clear();
         int columns = 0;
         int rows = 1;
         try {
-            for (ProductosMostrar product : products) {
+            for (int i = 0; i < products.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
                 VBox productosBox = fxmlLoader.load();
                 ProductosController productosController = fxmlLoader.getController();
-                productosController.setData(product);
+                productosController.setData(products.get(i));
 
                 if (columns == 3) {
                     columns = 0;
@@ -143,19 +142,12 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-    private List<ProductosMostrar> loadDataFromRepo() {
-        List<ProductoVenta> productosVenta = repoProductos.findall();
-        return productosVenta.stream()
-                .map(this::convertToProductosMostrar)
-                .collect(Collectors.toList());
+    private List<ProductoVenta> data() {
+        RepositorioGenerico<ProductoVenta> repoclientes = new ProductosRepo();
+        List<ProductoVenta> ls = repoclientes.findall();
+
+        return ls;
     }
 
-    private ProductosMostrar convertToProductosMostrar(ProductoVenta productoVenta) {
-        ProductosMostrar producto = new ProductosMostrar();
-        producto.setId(productoVenta.getId());
-        producto.setProductoImage(productoVenta.getUrlimg());
-        producto.setPrecio(productoVenta.getPrecio());
-        producto.setCantidadSeleccionado(productoVenta.getCantidad());
-        return producto;
-    }
+
 }
