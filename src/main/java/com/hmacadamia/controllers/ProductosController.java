@@ -39,7 +39,7 @@ public class ProductosController implements Initializable {
             image.setPreserveRatio(true); // Preserva la relación de aspecto
             image.setSmooth(true); // Usa suavizado para la imagen
 
-            lbID.setText(productos.getId());
+            lbID.setText(String.valueOf(productos.getId()));
             lblDescripcion.setText(productos.getDescripcion());
             lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidadSeleccionado()));
             lblPrecio.setText(String.valueOf(productos.getPrecio()));

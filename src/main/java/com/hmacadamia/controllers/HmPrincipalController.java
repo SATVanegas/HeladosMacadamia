@@ -1,6 +1,9 @@
 package com.hmacadamia.controllers;
 
 import com.hmacadamia.Models.ProductosMostrar;
+import com.hmacadamia.pos.ProductoVenta;
+import com.hmacadamia.repo.ProductosRepo;
+import com.hmacadamia.repo.RepositorioGenerico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,12 +38,14 @@ public class HmPrincipalController implements Initializable {
 
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
 
+    RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupSearchFieldListener();
         setupSuggestionsListListener();
 
-        productos = new ArrayList<>(data());
+        productos = new ArrayList<>(loadDataFromRepo());
         showAllProducts();
     }
 
@@ -49,11 +55,11 @@ public class HmPrincipalController implements Initializable {
                 showAllProducts();
                 suggestionsList.setVisible(false);
             } else {
-                List<String> filtered = productos.stream()
+                List<Integer> filtered = productos.stream()
                         .map(ProductosMostrar::getId)
-                        .filter(id -> id.toLowerCase().startsWith(newValue.toLowerCase()))
-                        .collect(Collectors.toList());
-                suggestions.setAll(filtered);
+                        .filter(id -> id.toString().toLowerCase().startsWith(newValue.toLowerCase()))
+                        .toList();
+                suggestions.setAll(String.valueOf(filtered));
                 suggestionsList.setVisible(!filtered.isEmpty());
             }
         });
@@ -102,10 +108,11 @@ public class HmPrincipalController implements Initializable {
 
     private void performSearch(String query) {
         List<ProductosMostrar> filteredProducts = productos.stream()
-                .filter(producto -> producto.getId().toLowerCase().contains(query.toLowerCase()))
+                .filter(producto -> Integer.toString(producto.getId()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
+
 
     private void updateGridPane(List<ProductosMostrar> products) {
         GridProductos.getChildren().clear();
@@ -136,23 +143,19 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-    private List<ProductosMostrar> data() {
-        List<ProductosMostrar> ls = new ArrayList<>();
-
-        ls.add(createProduct("1223", "/com/ImagenesProductos/1.jpg", 2000.0, 2));
-        ls.add(createProduct("23", "/com/ImagenesProductos/1.jpg", 2100.0, 2));
-        ls.add(createProduct("1", "/com/ImagenesProductos/1.jpg", 2200.0, 2));
-        ls.add(createProduct("3", "/com/ImagenesProductos/1.jpg", 2300.0, 2));
-
-        return ls;
+    private List<ProductosMostrar> loadDataFromRepo() {
+        List<ProductoVenta> productosVenta = repoProductos.findall();
+        return productosVenta.stream()
+                .map(this::convertToProductosMostrar)
+                .collect(Collectors.toList());
     }
 
-    private ProductosMostrar createProduct(String id, String imagePath, double price, int cantidadSeleccionado) {
+    private ProductosMostrar convertToProductosMostrar(ProductoVenta productoVenta) {
         ProductosMostrar producto = new ProductosMostrar();
-        producto.setId(id);
-        producto.setProductoImage(imagePath);
-        producto.setPrecio(price);
-        producto.setCantidadSeleccionado(cantidadSeleccionado);
+        producto.setId(productoVenta.getId());
+        producto.setProductoImage(productoVenta.getUrlimg());
+        producto.setPrecio(productoVenta.getPrecio());
+        producto.setCantidadSeleccionado(productoVenta.getCantidad());
         return producto;
     }
 }
