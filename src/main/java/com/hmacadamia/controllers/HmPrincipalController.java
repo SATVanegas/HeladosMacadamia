@@ -1,5 +1,4 @@
 package com.hmacadamia.controllers;
-
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
