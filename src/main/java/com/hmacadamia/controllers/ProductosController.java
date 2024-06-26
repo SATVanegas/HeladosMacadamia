@@ -43,7 +43,7 @@ public class ProductosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println("ImageView clicked!");
+            System.out.println("ImageView clicked! " +lbID.getText());
         });
     }
 }
