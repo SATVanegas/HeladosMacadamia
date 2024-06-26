@@ -62,6 +62,7 @@ public class HmPrincipalController implements Initializable {
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
     private final ObservableList<ProductoVenta> observablePvList = FXCollections.observableArrayList();
     RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
+    private double total = 0.0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,7 +78,6 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
-        // Add listener to format text while typing
         txtRecibe.textProperty().addListener((observable, oldValue, newValue) -> {
             // Allow only digits and commas
             if (!newValue.matches("[\\d,]*")) {
@@ -88,14 +88,11 @@ public class HmPrincipalController implements Initializable {
             // Format the number
             txtRecibe.setText(formatNumber(newValue));
         });
+
         // Add listener for Enter key press
         txtRecibe.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    handleEnterKey();
-                    break;
-                default:
-                    break;
+            if (event.getCode() == KeyCode.ENTER) {
+                handleEnterKey();
             }
         });
 
@@ -270,7 +267,7 @@ public class HmPrincipalController implements Initializable {
 
     private void updateTotal() {
         // Variable para almacenar el total de los subtotales
-        double total = observablePvList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
+        total = observablePvList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
         LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
     }
 
@@ -310,17 +307,22 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-    //funcion para manejar el evento cuando se presione enter sobre el texfield recibe
+    @FXML
     private void handleEnterKey() {
 
         String text = txtRecibe.getText().replaceAll(",", "");
         try {
             double recibe = Double.parseDouble(text);
-            double cambio = recibe -
+            double cambio = recibe - getTotal();
+            lblCambio.setText(formatNumber(cambio));
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Invalid number format");
         }
+    }
+
+    public double getTotal() {
+        return total;
     }
 }
