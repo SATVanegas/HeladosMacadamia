@@ -3,6 +3,9 @@ package com.hmacadamia.Models;
 public class ProductosMostrar {
     private String ProductoImage;
     private String id;
+
+    private String Descripcion;
+
     private double precio;
     private int cantidadSeleccionado;
 
@@ -37,6 +40,14 @@ public class ProductosMostrar {
 
     public void setCantidadSeleccionado(int cantidadSeleccionado) {
         this.cantidadSeleccionado = cantidadSeleccionado;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        Descripcion = descripcion;
     }
 
 }

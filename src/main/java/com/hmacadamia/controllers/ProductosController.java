@@ -19,6 +19,8 @@ public class ProductosController implements Initializable {
     @FXML
     private Label lbID;
 
+    @FXML
+    private Label lblDescripcion;
 
     @FXML
     private Label lblCantidadSeleccionada;
@@ -38,6 +40,7 @@ public class ProductosController implements Initializable {
             image.setSmooth(true); // Usa suavizado para la imagen
 
             lbID.setText(productos.getId());
+            lblDescripcion.setText(productos.getDescripcion());
             lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidadSeleccionado()));
             lblPrecio.setText(String.valueOf(productos.getPrecio()));
         } catch (NullPointerException e) {

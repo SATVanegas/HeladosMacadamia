@@ -18,6 +18,11 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
+                  <Label text="Descripcion">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
                   <Label text="Precio">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -33,6 +38,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
                <children>
                   <Label fx:id="lbID" />
+                  <Label fx:id="lblDescripcion" />
                   <Label fx:id="lblPrecio" />
                   <Label fx:id="lblCantidadSeleccionada" />
                </children>
