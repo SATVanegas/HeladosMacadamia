@@ -17,7 +17,7 @@ public class Factura {
     }
 
     public void agregarItem(int id, String descripcion, int cantidad, double precioUnitario) {
-        ProductoVenta item = new ProductoVenta(id,descripcion, cantidad, precioUnitario);
+        ProductoVenta item = new ProductoVenta(id,descripcion, precioUnitario, cantidad);
         items.add(item);
         total += item.getSubtotal();
     }

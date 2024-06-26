@@ -15,9 +15,7 @@ public class Pruebas {
         factura.agregarItem(6,"banasplit",7,21709.8);
 
         System.out.println(factura.generarFormatoFactura());
-
         String textoFactura = factura.generarFormatoFactura();
-
         ImpresoraTermica impresora = new ImpresoraTermica();
         impresora.imprimir(textoFactura);
     }
