@@ -151,6 +151,10 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void performSearch(String query) {
+        if (query == null || query.isEmpty()) {
+            return; // No hacer nada si la lista de productos está vacía o es nula
+        }
+
         List<ProductoVenta> filteredProducts = productos.stream()
                 .filter(producto -> Integer.toString(producto.getId()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
