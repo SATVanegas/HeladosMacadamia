@@ -26,7 +26,7 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
              ResultSet rs = st.executeQuery("select * from customers")) {
 
             while (rs.next()) {
-                Venta venta = getCustomer(rs);
+                Venta venta = getVenta(rs);
                 ventas.add(venta);
             }
 
@@ -34,7 +34,7 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
             throw new RuntimeException(e);
         }
 
-        return customers;
+        return ventas;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
         venta.setId(rs.getInt("id"));
         venta.setFecha(rs.getDate("fecha_venta"));
         venta.setTotal(rs.getDouble("total"));
-        venta.setProductoVentasJson(rs.getString(""));
+        venta.setProductoInventarios(rs.getString("productos"));
 
         return venta;
     }
