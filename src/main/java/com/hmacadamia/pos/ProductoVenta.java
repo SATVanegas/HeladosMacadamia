@@ -7,8 +7,14 @@ public class ProductoVenta extends Producto {
     private double subtotal;
     private int cantidad;
 
-    public ProductoVenta(int id, String nombre, int cantidad,double precio) {
-        super(id, nombre, precio);
+    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad) {
+        super(id, descripcion, precio, urlimg);
+        this.subtotal = subtotal;
+        this.cantidad = cantidad;
+    }
+
+    public ProductoVenta(int id, String descripcion, double precio, int cantidad) {
+        super(id, descripcion, precio);
         this.cantidad = cantidad;
     }
 
