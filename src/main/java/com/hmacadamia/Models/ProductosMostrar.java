@@ -5,7 +5,7 @@ public class ProductosMostrar {
     private String id;
     private double precio;
     private int cantidadSeleccionado;
-    private int cantidadRestante;
+
 
     public String getProductoImage() {
         return ProductoImage;
@@ -39,11 +39,4 @@ public class ProductosMostrar {
         this.cantidadSeleccionado = cantidadSeleccionado;
     }
 
-    public int getCantidadRestante() {
-        return cantidadRestante;
-    }
-
-    public void setCantidadRestante(int cantidadRestante) {
-        this.cantidadRestante = cantidadRestante;
-    }
 }
