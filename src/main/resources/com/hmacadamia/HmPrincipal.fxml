@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -81,8 +80,8 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="TbtCambio" layoutX="1206.0" layoutY="466.0" />
-                        <Label fx:id="Lbcambio" layoutX="1203.0" layoutY="528.0" prefHeight="31.0" prefWidth="129.0">
+                        <TextField fx:id="txtRecibe" layoutX="1206.0" layoutY="466.0" />
+                        <Label fx:id="lblcambio" layoutX="1203.0" layoutY="528.0" prefHeight="31.0" prefWidth="129.0">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -93,7 +92,7 @@
           </Tab>
           <Tab text="Inventario">
             <content>
-              <fx:include source="TabInventario.fxml"></fx:include>
+              <fx:include source="TabInventario.fxml" />
             </content>
           </Tab>
             <Tab text="Creaccion de gastos">

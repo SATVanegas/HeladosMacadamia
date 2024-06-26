@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.text.NumberFormat;
 
 public class HmPrincipalController implements Initializable {
 
@@ -51,6 +52,10 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
+    private TextField txtRecibe;
+    @FXML
+    private Label lblCambio;
+    @FXML
     private Button btnFacturar;
 
     protected static List<ProductoVenta> productos;
@@ -71,6 +76,28 @@ public class HmPrincipalController implements Initializable {
         ColumCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+
+        // Add listener to format text while typing
+        txtRecibe.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Allow only digits and commas
+            if (!newValue.matches("[\\d,]*")) {
+                txtRecibe.setText(oldValue);
+                return;
+            }
+
+            // Format the number
+            txtRecibe.setText(formatNumber(newValue));
+        });
+        // Add listener for Enter key press
+        txtRecibe.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    handleEnterKey();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         ColumSubtotal.setCellFactory(_ -> new TableCell<ProductoVenta, Double>() {
             @Override
@@ -255,6 +282,45 @@ public class HmPrincipalController implements Initializable {
             observablePvList.remove(selectedProducto);
             tableView.refresh();
             updateTotal(); // Actualizar el total después de eliminar un producto
+        }
+    }
+
+    //Formatear el dinero que ingrese con unidades de 1000
+    private String formatNumber(String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        try {
+            // Remove existing commas
+            text = text.replaceAll(",", "");
+
+            // Convert to number
+            Number number = Double.parseDouble(text);
+
+            // Format number with commas
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+            DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+            decimalFormat.applyPattern("#,###");
+
+            return decimalFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return text;
+        }
+    }
+
+    //funcion para manejar el evento cuando se presione enter sobre el texfield recibe
+    private void handleEnterKey() {
+
+        String text = txtRecibe.getText().replaceAll(",", "");
+        try {
+            double recibe = Double.parseDouble(text);
+            double cambio = recibe -
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("Invalid number format");
         }
     }
 }
