@@ -85,8 +85,11 @@ public class HmPrincipalController implements Initializable {
                 return;
             }
 
-            // Format the number
-            txtRecibe.setText(formatNumber(newValue));
+            // Avoid unnecessary updates that can lead to IllegalArgumentException
+            if (!newValue.equals(formatNumber(newValue))) {
+                txtRecibe.setText(formatNumber(newValue));
+            }
+
         });
         // Add listener for Enter key press
         txtRecibe.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -285,7 +288,6 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-    //Formatear el dinero que ingrese con unidades de 1000
     private String formatNumber(String text) {
         if (text == null || text.isEmpty()) {
             return "";
@@ -310,14 +312,17 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-    //funcion para manejar el evento cuando se presione enter sobre el texfield recibe
     private void handleEnterKey() {
-
+        // Perform your desired operation here
+        // For example, you can print the current value or perform a calculation
         String text = txtRecibe.getText().replaceAll(",", "");
         try {
-            double recibe = Double.parseDouble(text);
-            double cambio = recibe -
-
+            double number = Double.parseDouble(text);
+            // Perform your operation with 'number'
+            System.out.println("Enter key pressed. The number is: " + number);
+            // Example operation: multiply by 2 and print the result
+            double result = number * 2;
+            System.out.println("Result after operation: " + result);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Invalid number format");
