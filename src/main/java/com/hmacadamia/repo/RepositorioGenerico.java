@@ -2,7 +2,7 @@ package com.hmacadamia.repo;
 
 import java.util.List;
 
-public interface Repositorio <T>{
+public interface RepositorioGenerico<T>{
 
     List<T> findall();
 
