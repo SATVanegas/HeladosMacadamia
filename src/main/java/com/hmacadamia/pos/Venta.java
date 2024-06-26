@@ -1,8 +1,5 @@
 package com.hmacadamia.pos;
-
 import com.google.gson.Gson;
-import com.hmacadamia.inventario.ProductoInventario;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +9,7 @@ public class Venta {
     private Integer id;
     private Date fecha;
     private double total;
-    private List<ProductoInventario> productoInventarios;
+    private String productoVentasJson;
 
     public Integer getId() {
         return id;
@@ -38,19 +35,18 @@ public class Venta {
         this.total = total;
     }
 
-    public List<ProductoInventario> getProductoInventarios() {
-        return productoInventarios;
+    public String getProductoVentasJson() {
+        return productoVentasJson;
     }
 
-    public void setProductoInventarios(List<ProductoInventario> productoInventarios) {
-        this.productoInventarios = productoInventarios;
-    }
-
-    public String getProductoIdsAsJson() {
-        List<Integer> productoIds = productoInventarios.stream()
-                .map(ProductoInventario::getId)
+    public void setProductoVentasJson(List<ProductoVenta> productoVentas) {
+        List<Integer> productoIds = productoVentas.stream()
+                .map(ProductoVenta::getId)
                 .collect(Collectors.toList());
         Gson gson = new Gson();
-        return gson.toJson(productoIds);
+        this.productoVentasJson = gson.toJson(productoIds);
+        this.total = productoVentas.stream()
+                .mapToDouble(p -> p.getPrecio() * p.getCantidad())
+                .sum();
     }
 }
