@@ -17,8 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -56,7 +54,6 @@ public class HmPrincipalController implements Initializable {
     protected static List<ProductoVenta> productos;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
     private final ObservableList<ProductoVenta> observableSalesList = FXCollections.observableArrayList();
-    private double total = 0.0;  // Variable para almacenar el total de los subtotales
     RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
 
     @Override
@@ -73,7 +70,7 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
-        ColumSubtotal.setCellFactory(column -> new TableCell<ProductoVenta, Double>() {
+        ColumSubtotal.setCellFactory(_ -> new TableCell<ProductoVenta, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -88,7 +85,7 @@ public class HmPrincipalController implements Initializable {
         tableView.setItems(observableSalesList); // Inicializar la tabla con la lista observable
 
         //manejador de evento para boton delete
-        btnDelete.setOnAction(event -> eliminarProductoSeleccionado());
+        btnDelete.setOnAction(_ -> eliminarProductoSeleccionado());
     }
 
     private String formatNumber(double value) {
@@ -97,7 +94,7 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void setupSearchFieldListener() {
-        txtBuscadorF.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtBuscadorF.textProperty().addListener((observable, _, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 showAllProducts();
                 suggestionsList.setVisible(false);
@@ -117,7 +114,7 @@ public class HmPrincipalController implements Initializable {
                 if (selectedSuggestion != null) {
                     txtBuscadorF.setText(selectedSuggestion);
                 } else {
-                    txtBuscadorF.setText(suggestions.get(0));
+                    txtBuscadorF.setText(suggestions.getFirst());
                 }
                 suggestionsList.setVisible(false);
                 if (event.getCode() == KeyCode.ENTER) {
@@ -146,7 +143,7 @@ public class HmPrincipalController implements Initializable {
             }
         });
 
-        suggestionsList.setOnMouseClicked(event -> {
+        suggestionsList.setOnMouseClicked(_ -> {
             txtBuscadorF.setText(suggestionsList.getSelectionModel().getSelectedItem());
             suggestionsList.setVisible(false);
             performSearch(txtBuscadorF.getText());
@@ -168,14 +165,14 @@ public class HmPrincipalController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            for (int i = 0; i < products.size(); i++) {
+            for (ProductoVenta product : products) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
                 VBox productosBox = fxmlLoader.load();
                 ProductosController productosController = fxmlLoader.getController();
                 productosController.setPrincipalController(this); // Pasar referencia al controlador principal
-                productosController.setData(products.get(i));
+                productosController.setData(product);
 
                 if (columns == 3) {
                     columns = 0;
@@ -188,6 +185,7 @@ public class HmPrincipalController implements Initializable {
                 GridPane.setValignment(productosBox, VPos.CENTER);
             }
         } catch (IOException e) {
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -218,13 +216,11 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void updateTotal() {
-        total = observableSalesList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
+        // Variable para almacenar el total de los subtotales
+        double total = observableSalesList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
         LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
     }
 
-    public double getTotal() {
-        return total;
-    }
 
     //Elimar registro seleccionado de la tabla
     private void eliminarProductoSeleccionado() {
