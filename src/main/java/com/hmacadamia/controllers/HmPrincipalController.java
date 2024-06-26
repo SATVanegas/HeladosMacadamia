@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -68,7 +69,24 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
+        ColumSubtotal.setCellFactory(column -> new TableCell<ProductoVenta, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(formatNumber(item));
+                }
+            }
+        });
+
         tableView.setItems(observableSalesList); // Inicializar la tabla con la lista observable
+    }
+
+    private String formatNumber(double value) {
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        return formatter.format(value);
     }
 
     private void setupSearchFieldListener() {
@@ -191,7 +209,7 @@ public class HmPrincipalController implements Initializable {
 
     private void updateTotal() {
         total = observableSalesList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
-        LbTotal.setText("$ " + total); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
+        LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
     }
 
     public double getTotal() {
