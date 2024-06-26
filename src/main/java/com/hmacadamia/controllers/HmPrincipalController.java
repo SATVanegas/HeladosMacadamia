@@ -161,6 +161,9 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void updateGridPane(List<ProductoVenta> products) {
+        if (products == null || products.isEmpty()) {
+            return; // No hacer nada si la lista de productos está vacía o es nula
+        }
         GridProductos.getChildren().clear();
         int columns = 0;
         int rows = 1;
@@ -231,4 +234,5 @@ public class HmPrincipalController implements Initializable {
             tableView.refresh();
             updateTotal(); // Actualizar el total después de eliminar un producto
         }
+    }
 }
