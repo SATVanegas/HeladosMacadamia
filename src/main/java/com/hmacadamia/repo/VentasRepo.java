@@ -52,12 +52,12 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
 
     }
 
-    private  Venta getCustomer(ResultSet rs) throws SQLException {
+    private  Venta getVenta(ResultSet rs) throws SQLException {
         Venta venta = new Venta();
         venta.setId(rs.getInt("id"));
         venta.setFecha(rs.getDate("fecha_venta"));
         venta.setTotal(rs.getDouble("total"));
-        venta.setProductoInventarios(rs.getObject("datebirthday"));
+        venta.setProductoVentasJson(rs.getString(""));
 
         return venta;
     }
