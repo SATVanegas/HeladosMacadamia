@@ -31,6 +31,12 @@ public class ProductosController implements Initializable {
             Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(productos.getProductoImage())));
             image.setImage(image1);
 
+            // Ajustes adicionales para la imagen
+            image.setFitWidth(200); // Ajusta el ancho de la imagen
+            image.setFitHeight(200); // Ajusta la altura de la imagen
+            image.setPreserveRatio(true); // Preserva la relación de aspecto
+            image.setSmooth(true); // Usa suavizado para la imagen
+
             lbID.setText(productos.getId());
             lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidadSeleccionado()));
             lblPrecio.setText(String.valueOf(productos.getPrecio()));
