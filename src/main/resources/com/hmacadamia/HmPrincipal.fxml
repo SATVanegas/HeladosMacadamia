@@ -37,7 +37,7 @@
                               <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
                           </columns>
                         </TableView>
-                        <Button layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
+                        <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
                         <Button layoutX="1278.0" layoutY="540.0" mnemonicParsing="false" text="Facturar" />
                         <Label layoutX="1130.0" layoutY="456.0" prefHeight="35.0" prefWidth="63.0" text="Total :">
                            <font>

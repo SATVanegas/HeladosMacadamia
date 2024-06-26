@@ -17,6 +17,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -48,6 +50,8 @@ public class HmPrincipalController implements Initializable {
     private TextField txtBuscadorF;
     @FXML
     private Label LbTotal;
+    @FXML
+    private Button btnDelete;
 
     protected static List<ProductoVenta> productos;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
@@ -82,6 +86,9 @@ public class HmPrincipalController implements Initializable {
         });
 
         tableView.setItems(observableSalesList); // Inicializar la tabla con la lista observable
+
+        //manejador de evento para boton delete
+        btnDelete.setOnAction(event -> eliminarProductoSeleccionado());
     }
 
     private String formatNumber(double value) {
@@ -215,4 +222,13 @@ public class HmPrincipalController implements Initializable {
     public double getTotal() {
         return total;
     }
+
+    //Elimar registro seleccionado de la tabla
+    private void eliminarProductoSeleccionado() {
+        ProductoVenta selectedProducto = tableView.getSelectionModel().getSelectedItem();
+        if (selectedProducto != null) {
+            observableSalesList.remove(selectedProducto);
+            tableView.refresh();
+            updateTotal(); // Actualizar el total después de eliminar un producto
+        }
 }
