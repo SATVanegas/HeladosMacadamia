@@ -8,8 +8,6 @@ public interface RepositorioGenerico<T>{
 
     T searchById(Long id);
     T searchById(List<T> l, Long id);
-
     void save(T t);
-
     void remove(Long id);
 }

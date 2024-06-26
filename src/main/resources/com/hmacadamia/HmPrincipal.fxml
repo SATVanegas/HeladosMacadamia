@@ -28,18 +28,18 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0">
+                        <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0">
                           <columns>
-                              <TableColumn maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
-                            <TableColumn maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
-                            <TableColumn maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Cantidad" />
-                              <TableColumn maxWidth="120.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Precio de venta" />
-                              <TableColumn maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
+                              <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
+                            <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
+                            <TableColumn fx:id="ColumCantidad" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Cantidad" />
+                              <TableColumn fx:id="ColumPrecioVenta" maxWidth="120.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Precio de venta" />
+                              <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
                           </columns>
                         </TableView>
                         <Button layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
                         <Button layoutX="1278.0" layoutY="540.0" mnemonicParsing="false" text="Facturar" />
-                        <Label layoutX="1130.0" layoutY="456.0" prefHeight="35.0" prefWidth="63.0" text="Total">
+                        <Label layoutX="1130.0" layoutY="456.0" prefHeight="35.0" prefWidth="63.0" text="Total :">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -54,7 +54,7 @@
                            <children>
                               <ScrollPane prefHeight="583.0" prefWidth="680.0">
                                  <content>
-                                    <GridPane fx:id="GridProductos" hgap="10" vgap="10" alignment="CENTER">
+                                    <GridPane fx:id="GridProductos" alignment="CENTER" hgap="10" vgap="10">
                                       <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
@@ -66,6 +66,11 @@
                         <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
                         <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
                         <ChoiceBox layoutX="223.0" layoutY="40.0" prefHeight="38.0" prefWidth="137.0" />
+                        <Label fx:id="LbTotal" layoutX="1203.0" layoutY="459.0" prefHeight="31.0" prefWidth="129.0">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>

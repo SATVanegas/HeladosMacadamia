@@ -47,6 +47,7 @@ public class VentasRepo implements RepositorioGenerico<Venta>{
         return null;
     }
 
+
     @Override
     public void save(Venta venta) {
 

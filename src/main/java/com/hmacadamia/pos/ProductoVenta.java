@@ -22,11 +22,13 @@ public class ProductoVenta extends Producto {
 
     }
 
-
     public double getSubtotal() {
-        return this.cantidad * super.getPrecio();
+        return subtotal;
     }
 
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
 
     public int getCantidad() {
         return cantidad;

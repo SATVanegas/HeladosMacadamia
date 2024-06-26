@@ -10,5 +10,7 @@ module com.hmacadamia {
     opens com.hmacadamia.controllers to javafx.fxml;
     exports com.hmacadamia.pos;
     opens com.hmacadamia.pos to javafx.fxml;
+    opens com.hmacadamia.superclass to javafx.fxml;
+    exports com.hmacadamia.superclass;
 
 }

@@ -1,4 +1,5 @@
 package com.hmacadamia.controllers;
+
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
@@ -10,8 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -24,16 +25,34 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class HmPrincipalController implements Initializable {
+
+    @FXML
+    private TableView<ProductoVenta> tableView;
+    @FXML
+    private TableColumn<ProductoVenta, Long> ColumCodigo;
+    @FXML
+    private TableColumn<ProductoVenta, String> ColumDescripcion;
+    @FXML
+    private TableColumn<ProductoVenta, Integer> ColumCantidad;
+    @FXML
+    private TableColumn<ProductoVenta, Double> ColumPrecioVenta;
+    @FXML
+    private TableColumn<ProductoVenta, Double> ColumSubtotal;
+
     @FXML
     private GridPane GridProductos;
     @FXML
     private ListView<String> suggestionsList;
     @FXML
     private TextField txtBuscadorF;
+    @FXML
+    private Label LbTotal;
 
     protected static List<ProductoVenta> productos;
-
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
+    private final ObservableList<ProductoVenta> observableSalesList = FXCollections.observableArrayList();
+    private double total = 0.0;  // Variable para almacenar el total de los subtotales
+    RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,6 +61,14 @@ public class HmPrincipalController implements Initializable {
 
         productos = new ArrayList<>(data());
         showAllProducts();
+
+        ColumCodigo.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ColumDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        ColumCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+
+        tableView.setItems(observableSalesList); // Inicializar la tabla con la lista observable
     }
 
     private void setupSearchFieldListener() {
@@ -79,7 +106,6 @@ public class HmPrincipalController implements Initializable {
         });
     }
 
-
     private void showAllProducts() {
         updateGridPane(productos);
     }
@@ -109,7 +135,6 @@ public class HmPrincipalController implements Initializable {
         updateGridPane(filteredProducts);
     }
 
-
     private void updateGridPane(List<ProductoVenta> products) {
         GridProductos.getChildren().clear();
         int columns = 0;
@@ -121,6 +146,7 @@ public class HmPrincipalController implements Initializable {
 
                 VBox productosBox = fxmlLoader.load();
                 ProductosController productosController = fxmlLoader.getController();
+                productosController.setPrincipalController(this); // Pasar referencia al controlador principal
                 productosController.setData(products.get(i));
 
                 if (columns == 3) {
@@ -140,10 +166,35 @@ public class HmPrincipalController implements Initializable {
     }
 
     private List<ProductoVenta> data() {
-        RepositorioGenerico<ProductoVenta> repoclientes = new ProductosRepo();
-        List<ProductoVenta> ls = repoclientes.findall();
-        return ls;
+        return repoPv.findall();
     }
 
+    // Método para agregar o actualizar un producto en el controlador principal
+    public void addOrUpdateProducto(ProductoVenta producto) {
+        boolean exists = false;
+        for (ProductoVenta existingProducto : observableSalesList) {
+            if (existingProducto.getId() == producto.getId()) {
+                existingProducto.setCantidad(existingProducto.getCantidad() + 1);
+                existingProducto.setSubtotal(existingProducto.getSubtotal() + producto.getPrecio());
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            producto.setCantidad(1);
+            producto.setSubtotal(producto.getPrecio());
+            observableSalesList.add(producto);
+        }
+        tableView.refresh();
+        updateTotal(); // Actualizar el total después de agregar o actualizar un producto
+    }
 
+    private void updateTotal() {
+        total = observableSalesList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
+        LbTotal.setText("$ " + total); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
+    }
+
+    public double getTotal() {
+        return total;
+    }
 }

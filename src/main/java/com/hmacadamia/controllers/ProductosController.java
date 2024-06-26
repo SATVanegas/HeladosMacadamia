@@ -1,5 +1,6 @@
 package com.hmacadamia.controllers;
 
+import com.hmacadamia.controllers.HmPrincipalController;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -29,7 +31,12 @@ public class ProductosController implements Initializable {
     @FXML
     private Label lblPrecio;
 
-    RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
+    private HmPrincipalController principalController;
+    private final RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
+
+    public void setPrincipalController(HmPrincipalController controller) {
+        this.principalController = controller;
+    }
 
     public void setData(ProductoVenta productos) {
         try {
@@ -55,11 +62,13 @@ public class ProductosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            ProductoVenta pv = new ProductoVenta();
-            pv = repoProductos.searchById(HmPrincipalController.productos, Long.valueOf(lbID.getText()));
-            pv.setCantidad();
-            System.out.println("ImageView clicked! " + pv.getCantidad());
-            System.out.println(pv.getSubtotal());
+            long productoId = Long.valueOf(lbID.getText());
+            ProductoVenta pv = repoProductos.searchById(HmPrincipalController.productos, productoId);
+            if (pv != null && principalController != null) {
+                principalController.addOrUpdateProducto(pv);
+            } else {
+                System.out.println("Producto no encontrado o controlador principal no establecido.");
+            }
         });
     }
 }
