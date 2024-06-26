@@ -17,8 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -185,6 +183,7 @@ public class HmPrincipalController implements Initializable {
                 GridPane.setValignment(productosBox, VPos.CENTER);
             }
         } catch (IOException e) {
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -219,9 +218,6 @@ public class HmPrincipalController implements Initializable {
         LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
     }
 
-    public double getTotal() {
-        return total;
-    }
 
     //Elimar registro seleccionado de la tabla
     private void eliminarProductoSeleccionado() {
@@ -231,4 +227,5 @@ public class HmPrincipalController implements Initializable {
             tableView.refresh();
             updateTotal(); // Actualizar el total después de eliminar un producto
         }
+    }
 }
