@@ -83,7 +83,7 @@
                                         <Font name="System Bold" size="30.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad">
+                                <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad" styleClass="custom-text-field" stylesheets="@../Styles/Stilosbotones.css">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>

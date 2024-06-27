@@ -35,4 +35,24 @@
     -fx-padding: 20px;
     -fx-background-color: #F7F9F2;
 }
+/* Estilo para el TextField */
+.custom-text-field {
+    -fx-background-color: #F7F9F2; /* Color de fondo */
+    -fx-text-fill: #333; /* Color del texto */
+    -fx-prompt-text-fill: #91DDCF; /* Color del texto de sugerencia */
+    -fx-font-size: 24px; /* Tamaño de la fuente */
+    -fx-padding: 10px; /* Espaciado interno */
+    -fx-border-color: #91DDCF; /* Color del borde */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-font-weight: bold; /* Texto en negrita */
+}
+
+
+.custom-text-field:focused {
+    -fx-background-color: #E8C5E5; /* Color de fondo cuando está enfocado */
+    -fx-border-color: #F19ED2; /* Color del borde cuando está enfocado */
+}
+
 
