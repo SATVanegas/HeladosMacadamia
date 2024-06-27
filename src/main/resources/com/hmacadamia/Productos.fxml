@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="productosBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.ProductosController">
+<VBox fx:id="productosBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="175.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.ProductosController">
    <children>
-      <ImageView fx:id="image" fitHeight="240.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="198.0">
+      <ImageView fx:id="image" fitHeight="204.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
          <children>
-            <VBox prefHeight="88.0" prefWidth="85.0" spacing="2.0">
+            <VBox fillWidth="false" prefHeight="80.0" prefWidth="75.0" spacing="2.0">
                <children>
                   <Label alignment="BASELINE_LEFT" text="Id">
                      <font>
@@ -35,7 +36,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+            <VBox fillWidth="false" prefHeight="75.0" prefWidth="100.0" spacing="2.0">
                <children>
                   <Label fx:id="lbID" />
                   <Label fx:id="lblDescripcion" />
@@ -44,6 +45,9 @@
                </children>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
    </children>
 </VBox>

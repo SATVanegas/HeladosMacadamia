@@ -20,100 +20,102 @@
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.HmPrincipalController">
-   <children>
-      <TabPane prefHeight="768.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Facturacion">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0">
-                          <columns>
-                              <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
-                            <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
-                            <TableColumn fx:id="ColumCantidad" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Cantidad" />
-                              <TableColumn fx:id="ColumPrecioVenta" maxWidth="120.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Precio de venta" />
-                              <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
-                        <Button layoutX="1281.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleFacturar" text="Facturar" />
-                        <Label layoutX="957.0" layoutY="541.0" prefHeight="45.0" prefWidth="115.0" text="Total :">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
-                        <GridPane layoutX="33.0" layoutY="125.0" prefHeight="570.0" prefWidth="680.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints />
-                           </rowConstraints>
-                           <children>
-                              <ScrollPane prefHeight="583.0" prefWidth="680.0">
-                                 <content>
-                                    <GridPane fx:id="GridProductos" alignment="CENTER" hgap="10" vgap="10">
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                    </GridPane>
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </GridPane>
-                        <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
-                        <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
-                        <ChoiceBox layoutX="223.0" layoutY="40.0" prefHeight="38.0" prefWidth="137.0" />
-                        <Label fx:id="LbTotal" layoutX="1095.0" layoutY="543.0" prefHeight="42.0" prefWidth="253.0">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="957.0" layoutY="480.0" prefHeight="45.0" prefWidth="125.0" text="Recibe :">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="957.0" layoutY="601.0" prefHeight="45.0" prefWidth="135.0" text="Cambio :">
-                           <font>
-                              <Font name="System Bold" size="30.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font></TextField>
-                        <Label fx:id="LbCambio" layoutX="1095.0" layoutY="604.0" prefHeight="40.0" prefWidth="227.0">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Inventario">
-            <content>
-              <fx:include source="TabInventario.fxml" />
-            </content>
-          </Tab>
-            <Tab text="Creaccion de gastos">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextField layoutX="57.0" layoutY="76.0" promptText="Total" />
-                        <ComboBox layoutX="56.0" layoutY="40.0" prefWidth="150.0" promptText="Categoria" />
-                        <DatePicker layoutX="57.0" layoutY="109.0" />
-                     </children></AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Analitica de datos">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+    <children>
+        <TabPane prefHeight="768.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Facturacion">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0">
+                                    <columns>
+                                        <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
+                                        <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
+                                        <TableColumn fx:id="ColumCantidad" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Cantidad" />
+                                        <TableColumn fx:id="ColumPrecioVenta" maxWidth="120.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Precio de venta" />
+                                        <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
+                                    </columns>
+                                </TableView>
+                                <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
+                                <Button layoutX="1281.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleFacturar" text="Facturar" />
+                                <Label layoutX="957.0" layoutY="541.0" prefHeight="45.0" prefWidth="115.0" text="Total :">
+                                    <font>
+                                        <Font name="System Bold" size="30.0" />
+                                    </font>
+                                </Label>
+                                <GridPane layoutX="33.0" layoutY="125.0" prefHeight="570.0" prefWidth="680.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints />
+                                    </rowConstraints>
+                                    <children>
+                                        <ScrollPane prefHeight="580.0" prefWidth="680.0">
+                                            <content>
+                                                <GridPane fx:id="GridProductos" alignment="CENTER" hgap="20" vgap="20">
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="0" prefHeight="0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                </GridPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </GridPane>
+                                <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
+                                <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
+                                <ChoiceBox layoutX="223.0" layoutY="40.0" prefHeight="38.0" prefWidth="137.0" />
+                                <Label fx:id="LbTotal" layoutX="1095.0" layoutY="543.0" prefHeight="42.0" prefWidth="253.0">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="957.0" layoutY="480.0" prefHeight="45.0" prefWidth="125.0" text="Recibe :">
+                                    <font>
+                                        <Font name="System Bold" size="30.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="957.0" layoutY="601.0" prefHeight="45.0" prefWidth="135.0" text="Cambio :">
+                                    <font>
+                                        <Font name="System Bold" size="30.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </TextField>
+                                <Label fx:id="LbCambio" layoutX="1095.0" layoutY="604.0" prefHeight="40.0" prefWidth="227.0">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Inventario">
+                    <content>
+                        <fx:include source="TabInventario.fxml" />
+                    </content>
+                </Tab>
+                <Tab text="Creacion de gastos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField layoutX="57.0" layoutY="76.0" promptText="Total" />
+                                <ComboBox layoutX="56.0" layoutY="40.0" prefWidth="150.0" promptText="Categoria" />
+                                <DatePicker layoutX="57.0" layoutY="109.0" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Analitica de datos">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </Pane>

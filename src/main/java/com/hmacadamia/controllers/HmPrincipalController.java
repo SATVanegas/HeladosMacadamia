@@ -195,6 +195,9 @@ public class HmPrincipalController implements Initializable {
             return; // No hacer nada si la lista de productos está vacía o es nula
         }
         GridProductos.getChildren().clear();
+        GridProductos.setHgap(70); // Espacio horizontal entre columnas
+        GridProductos.setVgap(10); // Espacio vertical entre filas
+
         int columns = 0;
         int rows = 1;
         try {
@@ -213,16 +216,19 @@ public class HmPrincipalController implements Initializable {
                 }
 
                 GridProductos.add(productosBox, columns++, rows);
-                GridPane.setMargin(productosBox, new Insets(10));
+                // Asegúrate de que no haya márgenes alrededor de cada VBox
+                GridPane.setMargin(productosBox, Insets.EMPTY);
                 GridPane.setHalignment(productosBox, HPos.CENTER);
                 GridPane.setValignment(productosBox, VPos.CENTER);
             }
         } catch (IOException e) {
-            //noinspection CallToPrintStackTrace
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
+
+
+
 
     private List<ProductoVenta> data() {
         return repoPv.findall();
