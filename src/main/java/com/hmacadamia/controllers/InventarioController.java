@@ -35,16 +35,15 @@ public class InventarioController implements Initializable {
     private ListView<String> suggestionsList;
 
     protected static List<ProductoVenta> productos;
-    RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
+    private final RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        productos = new ArrayList<>(data());
         setupSearchFieldListener();
         setupSuggestionsListListener();
-
-        productos = new ArrayList<>(data());
         showAllProducts();
+
     }
 
     private List<ProductoVenta> data() {
