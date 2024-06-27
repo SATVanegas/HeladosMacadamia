@@ -88,7 +88,7 @@
                                         <Font name="System Bold" size="24.0" />
                                     </font>
                                 </Label>
-                        <ComboBox layoutX="198.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" />
+                        <ComboBox fx:id="Cbcategori" layoutX="198.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" />
                             </children>
                         </AnchorPane>
                     </content>

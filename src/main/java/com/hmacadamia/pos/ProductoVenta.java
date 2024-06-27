@@ -1,16 +1,21 @@
 package com.hmacadamia.pos;
 
+import com.hmacadamia.gastos.Categoria;
 import com.hmacadamia.superclass.Producto;
 
 public class ProductoVenta extends Producto {
 
     private double subtotal;
     private int cantidad;
+    private Categoria categoria;
 
-    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad) {
+
+
+    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad, Categoria cat) {
         super(id, descripcion, precio, urlimg);
         this.subtotal = subtotal;
         this.cantidad = cantidad;
+        this.categoria = cat;
     }
 
     public ProductoVenta(int id, String descripcion, double precio, int cantidad) {
