@@ -32,20 +32,24 @@ public class ProductosController implements Initializable {
     private Label lblPrecio;
 
     private HmPrincipalController principalController;
-
     private InventarioController inventarioController;
+
     private final RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
 
+    // Método para establecer el controlador principal
     public void setPrincipalController(HmPrincipalController controller) {
         this.principalController = controller;
     }
 
+    // Método para establecer el controlador del inventario
     public void setInventarioController(InventarioController controller) {
         this.inventarioController = controller;
     }
 
+    // Método para establecer los datos del producto
     public void setData(ProductoVenta productos) {
         try {
+            // Cargar la imagen del producto
             Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(productos.getUrlimg())));
             image.setImage(image1);
 
@@ -55,6 +59,7 @@ public class ProductosController implements Initializable {
             image.setPreserveRatio(true); // Preserva la relación de aspecto
             image.setSmooth(true); // Usa suavizado para la imagen
 
+            // Establecer los valores en las etiquetas
             lbID.setText(String.valueOf(productos.getId()));
             lblDescripcion.setText(productos.getDescripcion());
             lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidad()));
@@ -67,10 +72,12 @@ public class ProductosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Añadir un manejador de eventos para el clic en la imagen
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             long productoId = Long.valueOf(lbID.getText());
             ProductoVenta pv = repoProductos.searchById(HmPrincipalController.productos, productoId);
             if (pv != null && principalController != null) {
+                // Añadir o actualizar el producto en el controlador principal
                 principalController.addOrUpdateProducto(pv);
             } else {
                 System.out.println("Producto no encontrado o controlador principal no establecido.");
