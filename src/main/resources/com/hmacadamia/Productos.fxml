@@ -9,8 +9,8 @@
 
 <VBox fx:id="productosBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="175.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.ProductosController">
    <children>
-      <ImageView fx:id="image" fitHeight="204.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true" />
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="200.0">
+      <ImageView fx:id="image" fitHeight="200.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="175.0">
          <children>
             <VBox fillWidth="false" prefHeight="80.0" prefWidth="75.0" spacing="2.0">
                <children>
@@ -39,7 +39,7 @@
             <VBox fillWidth="false" prefHeight="75.0" prefWidth="100.0" spacing="2.0">
                <children>
                   <Label fx:id="lbID" />
-                  <Label fx:id="lblDescripcion" />
+                  <Label fx:id="lblDescripcion" wrapText="true" maxWidth="100" />
                   <Label fx:id="lblPrecio" />
                   <Label fx:id="lblCantidadSeleccionada" />
                </children>

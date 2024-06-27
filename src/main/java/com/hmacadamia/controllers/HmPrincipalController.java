@@ -3,6 +3,7 @@ import com.hmacadamia.pos.Factura;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
+import com.hmacadamia.superclass.Producto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -129,7 +130,7 @@ public class HmPrincipalController implements Initializable {
                 suggestionsList.setVisible(false);
             } else {
                 List<String> filtered = productos.stream()
-                        .map(producto -> String.valueOf(producto.getId()))  // Convertir ID a String
+                        .map(Producto::getDescripcion)  // Convertir ID a String
                         .filter(id -> id.toLowerCase().startsWith(newValue.toLowerCase()))
                         .collect(Collectors.toList());
                 suggestions.setAll(filtered);
@@ -185,7 +186,7 @@ public class HmPrincipalController implements Initializable {
         }
 
         List<ProductoVenta> filteredProducts = productos.stream()
-                .filter(producto -> Integer.toString(producto.getId()).toLowerCase().contains(query.toLowerCase()))
+                .filter(producto -> (producto.getDescripcion()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
@@ -226,8 +227,6 @@ public class HmPrincipalController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
     private List<ProductoVenta> data() {
