@@ -84,7 +84,7 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
-        txtRecibe.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtRecibe.textProperty().addListener((_, oldValue, newValue) -> {
             if (!newValue.matches("[\\d,]*")) {
                 txtRecibe.setText(oldValue);
                 return;

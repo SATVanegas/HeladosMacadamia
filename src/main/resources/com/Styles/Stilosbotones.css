@@ -1,0 +1,38 @@
+/* Estilos para los botones */
+.button1 {
+    -fx-background-color: #91DDCF; /* Color de fondo */
+    -fx-text-fill: white; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-padding: 10px 20px; /* Padding interno */
+    -fx-border-radius: 5px; /* Radio de borde */
+}
+
+.button2 {
+    -fx-background-color: #F19ED2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+/* Estilo para el contenedor principal */
+.root {
+    -fx-padding: 20px; /* Padding externo */
+    -fx-background-color: #F7F9F2; /* Color de fondo del contenedor */
+}
+
+/* Estilos para las filas de la tabla */
+.table-row-even {
+    -fx-background-color: #91DDCF;
+}
+
+.table-row-odd {
+    -fx-background-color: #F7F9F2;
+}
+
+/* Estilo para el contenedor principal */
+.root {
+    -fx-padding: 20px;
+    -fx-background-color: #F7F9F2;
+}
+

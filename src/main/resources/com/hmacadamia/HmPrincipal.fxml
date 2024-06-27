@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -24,9 +25,9 @@
             <tabs>
                 <Tab text="Facturacion">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: F7F9F2;">
                             <children>
-                                <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0">
+                                <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F7F9F2;" stylesheets="@../Styles/Stilosbotones.css">
                                     <columns>
                                         <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
                                         <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
@@ -34,9 +35,13 @@
                                         <TableColumn fx:id="ColumPrecioVenta" maxWidth="120.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Precio de venta" />
                                         <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
                                     </columns>
+                           <styleClass>
+                              <String fx:value="table-row-even" />
+                              <String fx:value="table-row-odd" />
+                           </styleClass>
                                 </TableView>
-                                <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
-                                <Button layoutX="1281.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleFacturar" text="Facturar" />
+                                <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" styleClass="button1" stylesheets="@../Styles/Stilosbotones.css" text="Eliminar" />
+                                <Button layoutX="1262.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleFacturar" styleClass="button2" stylesheets="@../Styles/Stilosbotones.css" text="Facturar" />
                                 <Label layoutX="957.0" layoutY="541.0" prefHeight="45.0" prefWidth="115.0" text="Total :">
                                     <font>
                                         <Font name="System Bold" size="30.0" />
@@ -50,7 +55,7 @@
                                         <RowConstraints />
                                     </rowConstraints>
                                     <children>
-                                        <ScrollPane prefHeight="580.0" prefWidth="680.0">
+                                        <ScrollPane prefHeight="580.0" prefWidth="680.0" style="-fx-background-color: F7F9F2;">
                                             <content>
                                                 <GridPane fx:id="GridProductos" alignment="CENTER" hgap="20" vgap="20">
                                                     <rowConstraints>
