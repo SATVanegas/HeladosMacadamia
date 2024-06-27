@@ -32,10 +32,16 @@ public class ProductosController implements Initializable {
     private Label lblPrecio;
 
     private HmPrincipalController principalController;
+
+    private InventarioController inventarioController;
     private final RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
 
     public void setPrincipalController(HmPrincipalController controller) {
         this.principalController = controller;
+    }
+
+    public void setInventarioController(InventarioController controller) {
+        this.inventarioController = controller;
     }
 
     public void setData(ProductoVenta productos) {
