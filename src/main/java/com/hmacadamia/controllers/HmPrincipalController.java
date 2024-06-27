@@ -1,4 +1,5 @@
 package com.hmacadamia.controllers;
+
 import com.hmacadamia.pos.Factura;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
@@ -58,6 +59,8 @@ public class HmPrincipalController implements Initializable {
     private Label LbCambio;
     @FXML
     private Button btnFacturar;
+    @FXML
+    private ComboBox<String> Cbcategoria;
 
     protected static List<ProductoVenta> productos;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
@@ -69,6 +72,8 @@ public class HmPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupSearchFieldListener();
         setupSuggestionsListListener();
+        setupCategoryComboBoxListener();
+        setupCategoryComboBoxItems();
 
         productos = new ArrayList<>(data());
         showAllProducts();
@@ -79,21 +84,17 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
-// Add listener to format text while typing
         txtRecibe.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Allow only digits and commas
             if (!newValue.matches("[\\d,]*")) {
                 txtRecibe.setText(oldValue);
                 return;
             }
 
-            // Avoid unnecessary updates that can lead to IllegalArgumentException
             if (!newValue.equals(formatNumber(newValue))) {
                 txtRecibe.setText(formatNumber(newValue));
             }
         });
 
-        // Add listener for Enter key press
         txtRecibe.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 handleEnterKey();
@@ -112,9 +113,8 @@ public class HmPrincipalController implements Initializable {
             }
         });
 
-        tableView.setItems(observablePvList); // Inicializar la tabla con la lista observable
+        tableView.setItems(observablePvList);
 
-        //manejador de evento para boton delete
         btnDelete.setOnAction(_ -> eliminarProductoSeleccionado());
     }
 
@@ -130,7 +130,7 @@ public class HmPrincipalController implements Initializable {
                 suggestionsList.setVisible(false);
             } else {
                 List<String> filtered = productos.stream()
-                        .map(Producto::getDescripcion)  // Convertir ID a String
+                        .map(Producto::getDescripcion)
                         .filter(id -> id.toLowerCase().startsWith(newValue.toLowerCase()))
                         .collect(Collectors.toList());
                 suggestions.setAll(filtered);
@@ -144,7 +144,7 @@ public class HmPrincipalController implements Initializable {
                 if (selectedSuggestion != null) {
                     txtBuscadorF.setText(selectedSuggestion);
                 } else {
-                    txtBuscadorF.setText(suggestions.getFirst());
+                    txtBuscadorF.setText(suggestions.get(0));
                 }
                 suggestionsList.setVisible(false);
                 if (event.getCode() == KeyCode.ENTER) {
@@ -158,6 +158,20 @@ public class HmPrincipalController implements Initializable {
         });
     }
 
+    private void setupCategoryComboBoxListener() {
+        Cbcategoria.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                showAllProducts();
+            } else {
+                performCategoryFilter(newValue);
+            }
+        });
+    }
+
+    private void setupCategoryComboBoxItems() {
+        List<String> categories = List.of("","Infantiles", "Conos", "Cucuruchos","Batidos");
+        Cbcategoria.setItems(FXCollections.observableArrayList(categories));
+    }
     private void showAllProducts() {
         updateGridPane(productos);
     }
@@ -182,22 +196,29 @@ public class HmPrincipalController implements Initializable {
 
     private void performSearch(String query) {
         if (query == null || query.isEmpty()) {
-            return; // No hacer nada si la lista de productos está vacía o es nula
+            return;
         }
 
         List<ProductoVenta> filteredProducts = productos.stream()
-                .filter(producto -> (producto.getDescripcion()).toLowerCase().contains(query.toLowerCase()))
+                .filter(producto -> producto.getDescripcion().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+        updateGridPane(filteredProducts);
+    }
+
+    private void performCategoryFilter(String category) {
+        List<ProductoVenta> filteredProducts = productos.stream()
+                .filter(producto -> producto.getCategoria().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
 
     private void updateGridPane(List<ProductoVenta> products) {
         if (products == null || products.isEmpty()) {
-            return; // No hacer nada si la lista de productos está vacía o es nula
+            return;
         }
         GridProductos.getChildren().clear();
-        GridProductos.setHgap(70); // Espacio horizontal entre columnas
-        GridProductos.setVgap(10); // Espacio vertical entre filas
+        GridProductos.setHgap(70);
+        GridProductos.setVgap(10);
 
         int columns = 0;
         int rows = 1;
@@ -208,7 +229,7 @@ public class HmPrincipalController implements Initializable {
 
                 VBox productosBox = fxmlLoader.load();
                 ProductosController productosController = fxmlLoader.getController();
-                productosController.setPrincipalController(this); // Pasar referencia al controlador principal
+                productosController.setPrincipalController(this);
                 productosController.setData(product);
 
                 if (columns == 3) {
@@ -217,7 +238,6 @@ public class HmPrincipalController implements Initializable {
                 }
 
                 GridProductos.add(productosBox, columns++, rows);
-                // Asegúrate de que no haya márgenes alrededor de cada VBox
                 GridPane.setMargin(productosBox, Insets.EMPTY);
                 GridPane.setHalignment(productosBox, HPos.CENTER);
                 GridPane.setValignment(productosBox, VPos.CENTER);
@@ -228,12 +248,10 @@ public class HmPrincipalController implements Initializable {
         }
     }
 
-
     private List<ProductoVenta> data() {
         return repoPv.findall();
     }
 
-    // Método para agregar o actualizar un producto en el controlador principal
     public void addOrUpdateProducto(ProductoVenta producto) {
         boolean exists = false;
         for (ProductoVenta existingProducto : observablePvList) {
@@ -250,7 +268,7 @@ public class HmPrincipalController implements Initializable {
             observablePvList.add(producto);
         }
         tableView.refresh();
-        updateTotal(); // Actualizar el total después de agregar o actualizar un producto
+        updateTotal();
     }
 
     @FXML
@@ -268,42 +286,31 @@ public class HmPrincipalController implements Initializable {
             fc.agregarItem((int) id, descripcion, cantidad, precio, subtotal);
         }
 
-        // Aquí puedes proceder con la lógica adicional de facturación si es necesario
         System.out.println(fc.generarFormatoFactura());
     }
 
-
     private void updateTotal() {
-        // Variable para almacenar el total de los subtotales
         total = observablePvList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
-        LbTotal.setText("$ " + formatNumber(total)); // Puedes reemplazar esto con la lógica que necesites para mostrar el total en tu UI
+        LbTotal.setText("$ " + formatNumber(total));
     }
 
-
-    //Elimar registro seleccionado de la tabla
     private void eliminarProductoSeleccionado() {
         ProductoVenta selectedProducto = tableView.getSelectionModel().getSelectedItem();
         if (selectedProducto != null) {
             observablePvList.remove(selectedProducto);
             tableView.refresh();
-            updateTotal(); // Actualizar el total después de eliminar un producto
+            updateTotal();
         }
     }
 
-    //Formatear el dinero que ingrese con unidades de 1000
     private String formatNumber(String text) {
         if (text == null || text.isEmpty()) {
             return "";
         }
 
         try {
-            // Remove existing commas
             text = text.replaceAll(",", "");
-
-            // Convert to number
             Number number = Double.parseDouble(text);
-
-            // Format number with commas
             NumberFormat numberFormat = NumberFormat.getNumberInstance();
             DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
             decimalFormat.applyPattern("#,###");
@@ -314,15 +321,12 @@ public class HmPrincipalController implements Initializable {
             return text;
         }
     }
+
     @FXML
     private void handleEnterKey() {
-        // Perform your desired operation here
-        // For example, you can print the current value or perform a calculation
         String text = txtRecibe.getText().replaceAll(",", "");
         try {
             double number = Double.parseDouble(text);
-            // Perform your operation with 'number'
-            // Example operation: multiply by 2 and print the result
             double vdevuelta = (number - getTotal());
             LbCambio.setText("$ " + formatNumber(vdevuelta));
         } catch (NumberFormatException e) {

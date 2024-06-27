@@ -80,6 +80,8 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
         pventa.setDescripcion(rs.getString("descripcion"));
         pventa.setPrecio(rs.getDouble("price"));
         pventa.setUrlimg(rs.getString("urlimg"));
+        String sn = (rs.getString("categoria"));
+        pventa.setCategoria(setCategoria(sn));
 
         return pventa;
     }

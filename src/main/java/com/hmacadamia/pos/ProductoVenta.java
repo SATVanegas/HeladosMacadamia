@@ -18,8 +18,8 @@ public class ProductoVenta extends Producto {
         this.categoria = categoria;
     }
 
-    public CategoriaProducto getCategoria() {
-        return categoria;
+    public String getCategoria() {
+        return categoria.getCategoriaP();
     }
 
     public void setCategoria(CategoriaProducto categoria) {
