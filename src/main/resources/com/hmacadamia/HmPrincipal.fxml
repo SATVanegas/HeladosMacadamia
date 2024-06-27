@@ -27,7 +27,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: F7F9F2;">
                             <children>
-                                <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F7F9F2;" stylesheets="@../Styles/Stilosbotones.css">
+                                <TableView fx:id="tableView" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Styles/Stilosbotones.css">
                                     <columns>
                                         <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
                                         <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
@@ -66,7 +66,7 @@
                                         </ScrollPane>
                                     </children>
                                 </GridPane>
-                                <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
+                                <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="59.0" prefWidth="356.0" promptText="Buscar" styleClass="custom-text-field" stylesheets="@../Styles/Stilosbotones.css" />
                                 <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
                                 <Label fx:id="LbTotal" layoutX="1095.0" layoutY="543.0" prefHeight="42.0" prefWidth="253.0">
                                     <font>
@@ -93,7 +93,11 @@
                                         <Font name="System Bold" size="24.0" />
                                     </font>
                                 </Label>
-                        <ComboBox fx:id="Cbcategoria" layoutX="198.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" />
+                        <ComboBox fx:id="Cbcategoria" layoutX="437.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" stylesheets="@../Styles/Stilosbotones.css">
+                           <styleClass>
+                              <String fx:value="custom-combo-box" />
+                              <String fx:value="list-cell" />
+                           </styleClass></ComboBox>
                             </children>
                         </AnchorPane>
                     </content>
