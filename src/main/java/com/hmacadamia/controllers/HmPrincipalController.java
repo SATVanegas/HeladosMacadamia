@@ -54,7 +54,7 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private TextField txtRecibe;
     @FXML
-    private Label lblCambio;
+    private Label LbCambio;
     @FXML
     private Button btnFacturar;
 
@@ -78,6 +78,7 @@ public class HmPrincipalController implements Initializable {
         ColumPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio"));
         ColumSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
+// Add listener to format text while typing
         txtRecibe.textProperty().addListener((observable, oldValue, newValue) -> {
             // Allow only digits and commas
             if (!newValue.matches("[\\d,]*")) {
@@ -85,8 +86,10 @@ public class HmPrincipalController implements Initializable {
                 return;
             }
 
-            // Format the number
-            txtRecibe.setText(formatNumber(newValue));
+            // Avoid unnecessary updates that can lead to IllegalArgumentException
+            if (!newValue.equals(formatNumber(newValue))) {
+                txtRecibe.setText(formatNumber(newValue));
+            }
         });
 
         // Add listener for Enter key press
@@ -306,16 +309,18 @@ public class HmPrincipalController implements Initializable {
             return text;
         }
     }
-
     @FXML
     private void handleEnterKey() {
-
+        // Perform your desired operation here
+        // For example, you can print the current value or perform a calculation
         String text = txtRecibe.getText().replaceAll(",", "");
         try {
-            double recibe = Double.parseDouble(text);
-            double cambio = recibe - getTotal();
-            lblCambio.setText(formatNumber(cambio));
-
+            double number = Double.parseDouble(text);
+            // Perform your operation with 'number'
+            System.out.println("Enter key pressed. The number is: " + number);
+            // Example operation: multiply by 2 and print the result
+            double vdevuelta = (number - getTotal());
+            LbCambio.setText("$ " + formatNumber(vdevuelta));
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Invalid number format");

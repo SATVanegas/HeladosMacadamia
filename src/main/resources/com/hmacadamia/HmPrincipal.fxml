@@ -37,10 +37,10 @@
                           </columns>
                         </TableView>
                         <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" text="Eliminar" />
-                        <Button layoutX="1280.0" layoutY="598.0" mnemonicParsing="false" onAction="#handleFacturar" text="Facturar" />
-                        <Label layoutX="1099.0" layoutY="496.0" prefHeight="35.0" prefWidth="63.0" text="Total :">
+                        <Button layoutX="1281.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleFacturar" text="Facturar" />
+                        <Label layoutX="957.0" layoutY="541.0" prefHeight="45.0" prefWidth="115.0" text="Total :">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
                         <GridPane layoutX="33.0" layoutY="125.0" prefHeight="570.0" prefWidth="680.0">
@@ -65,25 +65,28 @@
                         <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="38.0" prefWidth="137.0" promptText="Buscar" />
                         <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
                         <ChoiceBox layoutX="223.0" layoutY="40.0" prefHeight="38.0" prefWidth="137.0" />
-                        <Label fx:id="LbTotal" layoutX="1203.0" layoutY="498.0" prefHeight="31.0" prefWidth="129.0">
+                        <Label fx:id="LbTotal" layoutX="1095.0" layoutY="543.0" prefHeight="42.0" prefWidth="253.0">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1099.0" layoutY="461.0" prefHeight="35.0" prefWidth="94.0" text="Recibe :">
+                        <Label layoutX="957.0" layoutY="480.0" prefHeight="45.0" prefWidth="125.0" text="Recibe :">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <Label layoutX="1099.0" layoutY="526.0" prefHeight="35.0" prefWidth="94.0" text="Cambio :">
+                        <Label layoutX="957.0" layoutY="601.0" prefHeight="45.0" prefWidth="135.0" text="Cambio :">
                            <font>
-                              <Font name="System Bold" size="20.0" />
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtRecibe" layoutX="1206.0" layoutY="466.0" />
-                        <Label fx:id="lblcambio" layoutX="1203.0" layoutY="528.0" prefHeight="31.0" prefWidth="129.0">
+                        <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="24.0" />
+                           </font></TextField>
+                        <Label fx:id="LbCambio" layoutX="1095.0" layoutY="604.0" prefHeight="40.0" prefWidth="227.0">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
                      </children>
