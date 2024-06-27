@@ -317,7 +317,6 @@ public class HmPrincipalController implements Initializable {
         try {
             double number = Double.parseDouble(text);
             // Perform your operation with 'number'
-            System.out.println("Enter key pressed. The number is: " + number);
             // Example operation: multiply by 2 and print the result
             double vdevuelta = (number - getTotal());
             LbCambio.setText("$ " + formatNumber(vdevuelta));
