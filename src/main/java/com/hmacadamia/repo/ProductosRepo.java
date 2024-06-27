@@ -1,5 +1,7 @@
 package com.hmacadamia.repo;
 
+import com.hmacadamia.gastos.Categoria;
+import com.hmacadamia.pos.CategoriaProducto;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.pos.Venta;
 import com.hmacadamia.util.ConexionBD;
@@ -80,5 +82,25 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
         pventa.setUrlimg(rs.getString("urlimg"));
 
         return pventa;
+    }
+
+    private CategoriaProducto setCategoria(String cat){
+        CategoriaProducto CategoriaProducto = null;
+
+        switch (cat){
+            case "Infantiles":
+                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.INFANTILES;
+                break;
+            case "Batidos":
+                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.BATIDOS;
+                break;
+            case "Conos":
+                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.CONOS;
+                break;
+            case "Cucuruchos":
+                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.CUCURUCHOS;
+                break;
+        }
+        return CategoriaProducto;
     }
 }

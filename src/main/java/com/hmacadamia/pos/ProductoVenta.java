@@ -7,15 +7,23 @@ public class ProductoVenta extends Producto {
 
     private double subtotal;
     private int cantidad;
-    private Categoria categoria;
+    private CategoriaProducto categoria;
 
 
 
-    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad, Categoria cat) {
+    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad, CategoriaProducto categoria) {
         super(id, descripcion, precio, urlimg);
         this.subtotal = subtotal;
         this.cantidad = cantidad;
-        this.categoria = cat;
+        this.categoria = categoria;
+    }
+
+    public CategoriaProducto getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaProducto categoria) {
+        this.categoria = categoria;
     }
 
     public ProductoVenta(int id, String descripcion, double precio, int cantidad) {
