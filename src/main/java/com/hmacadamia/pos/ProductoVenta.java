@@ -3,6 +3,9 @@ package com.hmacadamia.pos;
 import com.hmacadamia.gastos.Categoria;
 import com.hmacadamia.superclass.Producto;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class ProductoVenta extends Producto {
 
     private double subtotal;
@@ -10,13 +13,26 @@ public class ProductoVenta extends Producto {
     private CategoriaProducto categoria;
 
 
-
-    public ProductoVenta(int id, String descripcion, double precio, String urlimg, double subtotal, int cantidad, CategoriaProducto categoria) {
-        super(id, descripcion, precio, urlimg);
+    public ProductoVenta(int id, String descripcion, double precio, String urlimg, boolean isProduct, double subtotal, int cantidad, CategoriaProducto categoria) {
+        super(id, descripcion, precio, urlimg, isProduct);
         this.subtotal = subtotal;
         this.cantidad = cantidad;
         this.categoria = categoria;
     }
+
+    public ProductoVenta(double subtotal, int cantidad, CategoriaProducto categoria) {
+        this.subtotal = subtotal;
+        this.cantidad = cantidad;
+        this.categoria = categoria;
+    }
+
+    public ProductoVenta(int id, String descripcion, double precio, double subtotal, int cantidad, CategoriaProducto categoria) {
+        super(id, descripcion, precio);
+        this.subtotal = subtotal;
+        this.cantidad = cantidad;
+        this.categoria = categoria;
+    }
+
 
     public String getCategoria() {
         return categoria.getCategoriaP();
@@ -54,4 +70,5 @@ public class ProductoVenta extends Producto {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
 }

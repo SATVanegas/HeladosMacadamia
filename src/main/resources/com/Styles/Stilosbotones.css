@@ -8,11 +8,12 @@
 }
 
 .button2 {
-    -fx-background-color: #F19ED2;
-    -fx-text-fill: white;
+    -fx-background-color: #690521;
+    -fx-text-fill: #f7c86d;
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;
     -fx-border-radius: 5px;
+    -fx-font-weight: bold;
 }
 
 /* Estilo para el contenedor principal */
@@ -23,16 +24,6 @@
 
 /* Estilos para las filas de la tabla */
 /* Estilo para las filas pares de la tabla */
-.table-row-even {
-    -fx-background-color: #91DDCF;
-    -fx-text-fill: #333;
-}
-
-/* Estilo para las filas impares de la tabla */
-.table-row-odd {
-    -fx-background-color: #F7F9F2;
-    -fx-text-fill: #333;
-}
 
 /* Estilo para el contenedor principal */
 .root {
@@ -47,15 +38,16 @@
     -fx-text-fill: #333; /* Color del texto */
     -fx-font-size: 14px; /* Tamaño de la fuente */
     -fx-padding: 5px; /* Espaciado interno */
-    -fx-border-color: #91DDCF; /* Color del borde */
+    -fx-border-color: #690521; /* Color del borde */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-font-weight: bold;
 }
 
 .custom-combo-box:focused {
-    -fx-background-color: #E8C5E5; /* Color de fondo cuando está enfocado */
-    -fx-border-color: #F19ED2; /* Color del borde cuando está enfocado */
+    -fx-background-color: #F7F9F2; /* Color de fondo cuando está enfocado */
+    -fx-border-color: #690521; /* Color del borde cuando está enfocado */
 }
 
 /* Estilo para los elementos del ComboBox */
@@ -65,13 +57,13 @@
 }
 
 .custom-combo-box .list-cell:hover {
-    -fx-background-color: #91DDCF; /* Color de fondo al pasar el mouse */
+    -fx-background-color: #f7c86d; /* Color de fondo al pasar el mouse */
     -fx-text-fill: white; /* Color del texto al pasar el mouse */
 }
 
 .custom-combo-box .list-cell:selected {
-    -fx-background-color: #E8C5E5; /* Color de fondo cuando está seleccionado */
-    -fx-text-fill: white; /* Color del texto cuando está seleccionado */
+    -fx-background-color: #F7F9F2; /* Color de fondo cuando está seleccionado */
+    -fx-text-fill: #690521; /* Color del texto cuando está seleccionado */
 }
 
 
@@ -84,10 +76,10 @@
 .custom-text-field {
     -fx-background-color: #F7F9F2; /* Color de fondo */
     -fx-text-fill: #333; /* Color del texto */
-    -fx-prompt-text-fill: #91DDCF; /* Color del texto de sugerencia */
+    -fx-prompt-text-fill: #690521; /* Color del texto de sugerencia */
     -fx-font-size: 24px; /* Tamaño de la fuente */
     -fx-padding: 10px; /* Espaciado interno */
-    -fx-border-color: #91DDCF; /* Color del borde */
+    -fx-border-color: #690521; /* Color del borde */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px; /* Bordes redondeados */
@@ -97,10 +89,10 @@
 .custom-text-field1 {
     -fx-background-color: #F7F9F2; /* Color de fondo */
     -fx-text-fill: #333; /* Color del texto */
-    -fx-prompt-text-fill: #91DDCF; /* Color del texto de sugerencia */
+    -fx-prompt-text-fill: #690521; /* Color del texto de sugerencia */
     -fx-font-size: 12px; /* Tamaño de la fuente */
     -fx-padding: 10px; /* Espaciado interno */
-    -fx-border-color: #91DDCF; /* Color del borde */
+    -fx-border-color: #690521; /* Color del borde */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px; /* Bordes redondeados */
@@ -109,8 +101,41 @@
 
 
 .custom-text-field:focused {
-    -fx-background-color: #E8C5E5; /* Color de fondo cuando está enfocado */
-    -fx-border-color: #F19ED2; /* Color del borde cuando está enfocado */
+    -fx-background-color: #d7d5c1; /* Color de fondo cuando está enfocado */
+    -fx-border-color: #690521; /* Color del borde cuando está enfocado */
 }
+
+.table-view {
+    -fx-background-color: #F7F9F2;
+    -fx-border-color: #690521;
+    -fx-border-width: 2px;
+    -fx-table-cell-border-color: #690521;
+    -fx-font-size: 12px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #690521;
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+.table-view .cell {
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #d7d5c1;
+    -fx-text-fill: #333;
+}
+
+.table-view .focused {
+    -fx-border-color: #690521;
+}
+
+
 
 

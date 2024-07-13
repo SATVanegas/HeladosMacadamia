@@ -90,14 +90,33 @@ public class HmPrincipalController implements Initializable {
                 return;
             }
 
-            if (!newValue.equals(formatNumber(newValue))) {
-                txtRecibe.setText(formatNumber(newValue));
+            String formattedValue = formatNumber(newValue);
+            if (!newValue.equals(formattedValue)) {
+                txtRecibe.setText(formattedValue);
+            }
+
+            // Llama al método handleEnterKey() automáticamente después de formatear el texto
+            try {
+                handleEnterKey();
+            } catch (IllegalArgumentException e) {
+                // Manejar la excepción, por ejemplo, imprimir un mensaje de error
+                System.out.println("Error al manejar la tecla ENTER: " + e.getMessage());
             }
         });
 
+// Verifica el rango antes de eliminar texto
         txtRecibe.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                handleEnterKey();
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                event.consume(); // Consumir el evento para evitar el comportamiento predeterminado
+                int caretPosition = txtRecibe.getCaretPosition();
+                if (caretPosition > 0 && caretPosition <= txtRecibe.getLength()) {
+                    try {
+                        txtRecibe.deleteText(caretPosition - 1, caretPosition);
+                    } catch (IllegalArgumentException e) {
+                        // Manejar la excepción, por ejemplo, imprimir un mensaje de error
+                        System.out.println("Error al eliminar texto: " + e.getMessage());
+                    }
+                }
             }
         });
 
@@ -169,7 +188,7 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void setupCategoryComboBoxItems() {
-        List<String> categories = List.of("","Infantiles", "Conos", "Cucuruchos","Batidos");
+        List<String> categories = List.of("","CHIPS", "GASEOSAS", "ADICIONES","SALSAS");
         Cbcategoria.setItems(FXCollections.observableArrayList(categories));
     }
     private void showAllProducts() {
@@ -281,6 +300,7 @@ public class HmPrincipalController implements Initializable {
             String descripcion = producto.getDescripcion();
             int cantidad = producto.getCantidad();
             double precio = producto.getPrecio();
+
             double subtotal = producto.getSubtotal();
 
             fc.agregarItem((int) id, descripcion, cantidad, precio, subtotal);
@@ -325,6 +345,11 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private void handleEnterKey() {
         String text = txtRecibe.getText().replaceAll(",", "");
+        if (text.isEmpty()) {
+            // Manejar el caso cuando el campo de texto está vacío
+            LbCambio.setText("$ 0.00");
+            return;
+        }
         try {
             double number = Double.parseDouble(text);
             double vdevuelta = (number - getTotal());
@@ -332,8 +357,11 @@ public class HmPrincipalController implements Initializable {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.out.println("Invalid number format");
+            // Manejar el caso de formato de número inválido
+            LbCambio.setText("$ 0.00");
         }
     }
+
 
     public double getTotal() {
         return total;

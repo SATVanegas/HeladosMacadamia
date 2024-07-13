@@ -5,16 +5,17 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class ImpresoraTermica {
 
     public void imprimir(String texto) {
         try {
             // Asegúrate de que el texto esté formateado adecuadamente
-            InputStream is = new ByteArrayInputStream(texto.getBytes("UTF8"));
+            InputStream is = new ByteArrayInputStream(texto.getBytes(StandardCharsets.UTF_8));
             DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
             PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-            PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+            PrintService[] printService = PrintServiceLookup.lookupPrintServices(flavor, pras);
             PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
 
             if (printService.length == 0) {

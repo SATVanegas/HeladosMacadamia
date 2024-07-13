@@ -43,7 +43,6 @@ public class InventarioController implements Initializable {
         setupSearchFieldListener();
         setupSuggestionsListListener();
         showAllProducts();
-
     }
 
     private List<ProductoVenta> data() {

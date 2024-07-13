@@ -1,6 +1,5 @@
 package com.hmacadamia.controllers;
 
-import com.hmacadamia.controllers.HmPrincipalController;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
@@ -10,8 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -30,7 +30,7 @@ public class ProductosController implements Initializable {
 
     @FXML
     private Label lblPrecio;
-
+    public int modelEmisor;
     private HmPrincipalController principalController;
     private InventarioController inventarioController;
 
@@ -63,7 +63,7 @@ public class ProductosController implements Initializable {
             lbID.setText(String.valueOf(productos.getId()));
             lblDescripcion.setText(productos.getDescripcion());
             lblCantidadSeleccionada.setText(String.valueOf(productos.getCantidad()));
-            lblPrecio.setText(String.valueOf(productos.getPrecio()));
+            lblPrecio.setText(formatNumber(String.valueOf(productos.getPrecio())));
         } catch (NullPointerException e) {
             System.err.println("Error: No se encontró la imagen en la ruta especificada.");
             e.printStackTrace();
@@ -74,14 +74,53 @@ public class ProductosController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Añadir un manejador de eventos para el clic en la imagen
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            long productoId = Long.valueOf(lbID.getText());
-            ProductoVenta pv = repoProductos.searchById(HmPrincipalController.productos, productoId);
-            if (pv != null && principalController != null) {
-                // Añadir o actualizar el producto en el controlador principal
-                principalController.addOrUpdateProducto(pv);
-            } else {
-                System.out.println("Producto no encontrado o controlador principal no establecido.");
+            long productoId = Long.parseLong(lbID.getText());
+            ProductoVenta ss = repoProductos.searchById(HmPrincipalController.productos, productoId);
+            modelEmisor = ss.isProduct() ? 0 : 1;
+            System.out.println(modelEmisor);
+
+            switch (modelEmisor) {
+                case 0:
+                    ProductoVenta pv = repoProductos.searchById(HmPrincipalController.productos, productoId);
+                    if (pv != null && principalController != null) {
+                        // Añadir o actualizar el producto en el controlador principal
+                        principalController.addOrUpdateProducto(pv);
+                    } else {
+                        System.out.println("Producto no encontrado o controlador principal no establecido.");
+                    }
+                    break;
+                case 1:
+                    ProductoVenta invpv = repoProductos.searchById(InventarioController.productos, productoId);
+                    if (invpv != null && inventarioController != null) {
+                        // Añadir o actualizar el producto en el controlador principal
+                        System.out.println("Producto seleccionado "+ invpv.getDescripcion());
+                    } else {
+                        System.out.println("Producto no encontrado o controlador principal no establecido.");
+                    }
+                    break;
+                default:
+                    System.out.println("Número no válido");
+                    break;
             }
+
         });
+    }
+    private String formatNumber(String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        try {
+            text = text.replaceAll(",", "");
+            Number number = Double.parseDouble(text);
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+            DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+            decimalFormat.applyPattern("#,###");
+
+            return decimalFormat.format(number);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return text;
+        }
     }
 }

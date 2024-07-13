@@ -1,10 +1,10 @@
 package com.hmacadamia.pos;
 
 public enum CategoriaProducto {
-    INFANTILES("Infantiles"),
-    BATIDOS("Batidos"),
-    CONOS("Conos"),
-    CUCURUCHOS("Cucuruchos");
+    CHIPS("CHIPS"),
+    GASEOSAS("GASEOSAS"),
+    ADICIONES("ADICIONES"),
+    SALSAS("SALSAS");
 
     private final String CategoriaP;
 

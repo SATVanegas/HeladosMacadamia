@@ -1,11 +1,7 @@
 package com.hmacadamia.repo;
-
-import com.hmacadamia.gastos.Categoria;
 import com.hmacadamia.pos.CategoriaProducto;
 import com.hmacadamia.pos.ProductoVenta;
-import com.hmacadamia.pos.Venta;
 import com.hmacadamia.util.ConexionBD;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,27 +78,19 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
         pventa.setUrlimg(rs.getString("urlimg"));
         String sn = (rs.getString("categoria"));
         pventa.setCategoria(setCategoria(sn));
+        pventa.setProduct(rs.getBoolean("Isproduct"));
 
         return pventa;
     }
 
     private CategoriaProducto setCategoria(String cat){
-        CategoriaProducto CategoriaProducto = null;
 
-        switch (cat){
-            case "Infantiles":
-                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.INFANTILES;
-                break;
-            case "Batidos":
-                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.BATIDOS;
-                break;
-            case "Conos":
-                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.CONOS;
-                break;
-            case "Cucuruchos":
-                CategoriaProducto = com.hmacadamia.pos.CategoriaProducto.CUCURUCHOS;
-                break;
-        }
-        return CategoriaProducto;
+        return switch (cat) {
+            case "CHIPS" -> CategoriaProducto.CHIPS;
+            case "Gaseosas" -> CategoriaProducto.GASEOSAS;
+            case "Adiciones" -> com.hmacadamia.pos.CategoriaProducto.ADICIONES;
+            case "Salsas" -> CategoriaProducto.SALSAS;
+            default -> null;
+        };
     }
 }

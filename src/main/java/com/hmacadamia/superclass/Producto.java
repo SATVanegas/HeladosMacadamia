@@ -5,12 +5,14 @@ public class Producto {
     private String descripcion;
     private double precio;
     private String urlimg;
+    private boolean isProduct;
 
-    public Producto(int id, String descripcion, double precio, String urlimg) {
+    public Producto(int id, String descripcion, double precio, String urlimg, boolean isProduct) {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
         this.urlimg = urlimg;
+        this.isProduct = isProduct;
     }
 
     public Producto() {
@@ -20,6 +22,14 @@ public class Producto {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
+    }
+
+    public boolean isProduct() {
+        return isProduct;
+    }
+
+    public void setProduct(boolean product) {
+        isProduct = product;
     }
 
     public String getUrlimg() {

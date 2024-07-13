@@ -8,8 +8,19 @@ public class ProductoInventario extends Producto {
     private int cantidadInventario;
     private Date ultimaFechadeActualizacion;
 
-    public ProductoInventario(int id, String descripcion, double precio, String urlimg, int cantidadInventario, Date ultimaFechadeActualizacion) {
-        super(id, descripcion, precio, urlimg);
+    public ProductoInventario(int id, String descripcion, double precio, String urlimg, boolean isProduct, int cantidadInventario, Date ultimaFechadeActualizacion) {
+        super(id, descripcion, precio, urlimg, isProduct);
+        this.cantidadInventario = cantidadInventario;
+        this.ultimaFechadeActualizacion = ultimaFechadeActualizacion;
+    }
+
+    public ProductoInventario(int cantidadInventario, Date ultimaFechadeActualizacion) {
+        this.cantidadInventario = cantidadInventario;
+        this.ultimaFechadeActualizacion = ultimaFechadeActualizacion;
+    }
+
+    public ProductoInventario(int id, String descripcion, double precio, int cantidadInventario, Date ultimaFechadeActualizacion) {
+        super(id, descripcion, precio);
         this.cantidadInventario = cantidadInventario;
         this.ultimaFechadeActualizacion = ultimaFechadeActualizacion;
     }
