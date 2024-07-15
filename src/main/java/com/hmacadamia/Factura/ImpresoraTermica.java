@@ -5,11 +5,9 @@ import com.hmacadamia.pos.ProductoVenta;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.UnitValue;
@@ -23,6 +21,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class ImpresoraTermica {
+
+    private final int tamanoCostante = 100;
 
     public void imprimir(String texto) {
         try {
@@ -76,6 +76,7 @@ public class ImpresoraTermica {
 
     public void generarPDFTer(Factura factura) {
         String dest = "src/main/resources/com/PDF/factura.pdf";
+        int numeroitems = factura.getCantidadItems();
 
         try {
             PdfWriter writer = new PdfWriter(new FileOutputStream(dest));
@@ -83,7 +84,7 @@ public class ImpresoraTermica {
 
             // Configurar el tamaño de la página (58 mm de ancho)
             float width = 58 * 2.83465f; // 1 mm = 2.83465 pt
-            float height = 297 * 2.83465f; // Altura inicial (será ajustada)
+            float height = (tamanoCostante + (numeroitems * 5)) * 2.83465f; // Altura inicial (será ajustada)
             pdf.setDefaultPageSize(new com.itextpdf.kernel.geom.PageSize(width, height));
 
             Document document = new Document(pdf);
@@ -94,7 +95,7 @@ public class ImpresoraTermica {
             document.add(new Paragraph("Nit: *******").setFontSize(8));
             document.add(new Paragraph("Factura No: " + factura.getNumeroFactura()).setFontSize(8));
             document.add(new Paragraph("Fecha: " + factura.getFecha()).setFontSize(8));
-            document.add(new Paragraph("Direccion: Copacabana\nAntioquia").setFontSize(8));
+            document.add(new Paragraph("Direccion: Copacabana-Antioquia").setFontSize(8));
             document.add(new Paragraph("----------------------------------------").setFontSize(8));
 
             // Tabla para los artículos
@@ -135,6 +136,7 @@ public class ImpresoraTermica {
             e.printStackTrace();
         }
     }
+
 
 }
 

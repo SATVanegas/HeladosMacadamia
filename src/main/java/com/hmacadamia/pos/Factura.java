@@ -37,6 +37,10 @@ public class Factura {
         return ahora.format(formatter);
     }
 
+    public int getCantidadItems(){
+       return this.getItems().size();
+    }
+
 
     public List<ProductoVenta> getItems() {
         return items;
