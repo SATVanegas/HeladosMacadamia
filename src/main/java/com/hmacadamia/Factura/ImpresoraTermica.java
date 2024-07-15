@@ -75,7 +75,7 @@ public class ImpresoraTermica {
     }
 
     public void generarPDFTer(Factura factura) {
-        String dest = "src/main/resources/com/PDF/factura.pdf";
+        String dest = "src/main/resources/com/PDF/factura #-" +factura.getNumeroFactura() +".pdf";
         int numeroitems = factura.getCantidadItems();
 
         try {

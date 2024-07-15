@@ -75,6 +75,7 @@ public class ProductosController implements Initializable {
         // Añadir un manejador de eventos para el clic en la imagen
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             long productoId = Long.parseLong(lbID.getText());
+            System.out.println(lbID.getText());
             ProductoVenta ss = repoProductos.searchById(HmPrincipalController.productos, productoId);
             modelEmisor = ss.isProduct() ? 0 : 1;
             System.out.println(modelEmisor);

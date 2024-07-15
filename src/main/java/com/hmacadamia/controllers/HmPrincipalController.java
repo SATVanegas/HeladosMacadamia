@@ -6,6 +6,7 @@ import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
 import com.hmacadamia.superclass.Producto;
+import com.hmacadamia.util.FechaFormato;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -295,7 +296,12 @@ public class HmPrincipalController implements Initializable {
     @FXML
     private void handleFacturar() {
         List<ProductoVenta> listaFacturar = new ArrayList<>(tableView.getItems());
-        Factura fc = new Factura("1", "6/26/2024");
+        ContadorFacturasController contadorFactura = new ContadorFacturasController();
+        FechaFormato fm = new FechaFormato();
+        String fechaFormateada = fm.getFechaFormateada();
+        String NumeroFactura = fechaFormateada.concat(String.valueOf(contadorFactura.consultarFactura()));
+        contadorFactura.incrementarFactura();
+        Factura fc = new Factura(NumeroFactura, "6/26/2024");
 
         for (ProductoVenta producto : listaFacturar) {
             long id = producto.getId();
@@ -310,6 +316,8 @@ public class HmPrincipalController implements Initializable {
 
          ImpresoraTermica imp = new ImpresoraTermica();
           imp.generarPDFTer(fc);
+
+
     }
 
     private void updateTotal() {
