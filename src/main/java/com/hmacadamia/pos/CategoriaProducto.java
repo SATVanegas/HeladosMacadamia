@@ -4,7 +4,8 @@ public enum CategoriaProducto {
     CHIPS("CHIPS"),
     GASEOSAS("GASEOSAS"),
     ADICIONES("ADICIONES"),
-    SALSAS("SALSAS");
+    SALSAS("SALSAS"),
+    INVENTARIO("INVENTARIO");
 
     private final String CategoriaP;
 

@@ -90,6 +90,7 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
             case "Gaseosas" -> CategoriaProducto.GASEOSAS;
             case "Adiciones" -> com.hmacadamia.pos.CategoriaProducto.ADICIONES;
             case "Salsas" -> CategoriaProducto.SALSAS;
+            case "Inventario" -> CategoriaProducto.INVENTARIO;
             default -> null;
         };
     }

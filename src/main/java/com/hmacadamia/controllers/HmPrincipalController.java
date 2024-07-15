@@ -120,7 +120,7 @@ public class HmPrincipalController implements Initializable {
             }
         });
 
-        ColumSubtotal.setCellFactory(_ -> new TableCell<ProductoVenta, Double>() {
+        ColumSubtotal.setCellFactory(_ -> new TableCell<>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -143,7 +143,7 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void setupSearchFieldListener() {
-        txtBuscadorF.textProperty().addListener((observable, _, newValue) -> {
+        txtBuscadorF.textProperty().addListener((_, _, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 showAllProducts();
                 suggestionsList.setVisible(false);
@@ -163,7 +163,7 @@ public class HmPrincipalController implements Initializable {
                 if (selectedSuggestion != null) {
                     txtBuscadorF.setText(selectedSuggestion);
                 } else {
-                    txtBuscadorF.setText(suggestions.get(0));
+                    txtBuscadorF.setText(suggestions.getFirst());
                 }
                 suggestionsList.setVisible(false);
                 if (event.getCode() == KeyCode.ENTER) {
@@ -178,7 +178,7 @@ public class HmPrincipalController implements Initializable {
     }
 
     private void setupCategoryComboBoxListener() {
-        Cbcategoria.valueProperty().addListener((observable, oldValue, newValue) -> {
+        Cbcategoria.valueProperty().addListener((_, _, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 showAllProducts();
             } else {

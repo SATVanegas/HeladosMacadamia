@@ -65,7 +65,8 @@ public class InventarioController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            for (ProductoVenta product : products) {
+            List<ProductoVenta> productosFiltrados = products.stream().filter(productoVenta -> !productoVenta.isProduct()).toList();
+            for (ProductoVenta product : productosFiltrados) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
