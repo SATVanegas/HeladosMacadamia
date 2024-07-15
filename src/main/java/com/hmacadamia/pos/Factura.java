@@ -46,7 +46,7 @@ public class Factura {
         return total;
     }
 
-    private String formatNumber(double value) {
+    public String formatNumber(double value) {
         DecimalFormat formatter = new DecimalFormat("#,###.00");
         return formatter.format(value);
     }

@@ -1,5 +1,6 @@
 package com.hmacadamia.controllers;
 
+import com.hmacadamia.Factura.ImpresoraTermica;
 import com.hmacadamia.pos.Factura;
 import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
@@ -242,7 +243,8 @@ public class HmPrincipalController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            for (ProductoVenta product : products) {
+            List<ProductoVenta> productosFiltrados = products.stream().filter(Producto::isProduct).toList();
+            for (ProductoVenta product : productosFiltrados) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
@@ -306,7 +308,8 @@ public class HmPrincipalController implements Initializable {
             fc.agregarItem((int) id, descripcion, cantidad, precio, subtotal);
         }
 
-        System.out.println(fc.generarFormatoFactura());
+         ImpresoraTermica imp = new ImpresoraTermica();
+          imp.generarPDFTer(fc);
     }
 
     private void updateTotal() {
