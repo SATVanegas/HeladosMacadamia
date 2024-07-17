@@ -1,8 +1,8 @@
 package com.hmacadamia.controllers;
 
-import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
+import com.hmacadamia.superclass.Producto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -34,7 +34,7 @@ public class ProductosController implements Initializable {
     private FacturacionController principalController;
     private InventarioController inventarioController;
 
-    private final RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
+    private final RepositorioGenerico<Producto> repoProductos = new ProductosRepo();
 
     // Método para establecer el controlador principal
     public void setPrincipalController(FacturacionController controller) {
@@ -47,7 +47,7 @@ public class ProductosController implements Initializable {
     }
 
     // Método para establecer los datos del producto
-    public void setData(ProductoVenta productos) {
+    public void setData(Producto productos) {
         try {
             // Cargar la imagen del producto
             Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(productos.getUrlimg())));
@@ -76,13 +76,13 @@ public class ProductosController implements Initializable {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             long productoId = Long.parseLong(lbID.getText());
             System.out.println(lbID.getText());
-            ProductoVenta ss = repoProductos.searchById(FacturacionController.productos, productoId);
+            Producto ss = repoProductos.searchById(FacturacionController.productos, productoId);
             modelEmisor = ss.isProduct() ? 0 : 1;
             System.out.println(modelEmisor);
 
             switch (modelEmisor) {
                 case 0:
-                    ProductoVenta pv = repoProductos.searchById(FacturacionController.productos, productoId);
+                    Producto pv = repoProductos.searchById(FacturacionController.productos, productoId);
                     if (pv != null && principalController != null) {
                         // Añadir o actualizar el producto en el controlador principal
                         principalController.addOrUpdateProducto(pv);
@@ -91,7 +91,7 @@ public class ProductosController implements Initializable {
                     }
                     break;
                 case 1:
-                    ProductoVenta invpv = repoProductos.searchById(InventarioController.productos, productoId);
+                    Producto invpv = repoProductos.searchById(InventarioController.productos, productoId);
                     if (invpv != null && inventarioController != null) {
                         // Añadir o actualizar el producto en el controlador principal
                         System.out.println("Producto seleccionado "+ invpv.getDescripcion());

@@ -3,7 +3,6 @@ package com.hmacadamia.controllers;
 import com.hmacadamia.Factura.ImpresoraTermica;
 import com.hmacadamia.format.Formatos;
 import com.hmacadamia.pos.Factura;
-import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
 import com.hmacadamia.superclass.Producto;
@@ -26,7 +25,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,17 +33,17 @@ import java.util.stream.Collectors;
 public class FacturacionController implements Initializable {
 
     @FXML
-    private TableView<ProductoVenta> tableView;
+    private TableView<Producto> tableView;
     @FXML
-    private TableColumn<ProductoVenta, Long> ColumCodigo;
+    private TableColumn<Producto, Long> ColumCodigo;
     @FXML
-    private TableColumn<ProductoVenta, String> ColumDescripcion;
+    private TableColumn<Producto, String> ColumDescripcion;
     @FXML
-    private TableColumn<ProductoVenta, Integer> ColumCantidad;
+    private TableColumn<Producto, Integer> ColumCantidad;
     @FXML
-    private TableColumn<ProductoVenta, Double> ColumPrecioVenta;
+    private TableColumn<Producto, Double> ColumPrecioVenta;
     @FXML
-    private TableColumn<ProductoVenta, Double> ColumSubtotal;
+    private TableColumn<Producto, Double> ColumSubtotal;
 
     @FXML
     private GridPane GridProductos;
@@ -64,10 +62,10 @@ public class FacturacionController implements Initializable {
     @FXML
     private ComboBox<String> Cbcategoria;
 
-    protected static List<ProductoVenta> productos;
+    protected static List<Producto> productos;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
-    private final ObservableList<ProductoVenta> observablePvList = FXCollections.observableArrayList();
-    RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
+    private final ObservableList<Producto> observablePvList = FXCollections.observableArrayList();
+    RepositorioGenerico<Producto> repoPv = new ProductosRepo();
     private double total = 0.0;
 
     @Override
@@ -213,20 +211,20 @@ public class FacturacionController implements Initializable {
             return;
         }
 
-        List<ProductoVenta> filteredProducts = productos.stream()
+        List<Producto> filteredProducts = productos.stream()
                 .filter(producto -> producto.getDescripcion().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
 
     private void performCategoryFilter(String category) {
-        List<ProductoVenta> filteredProducts = productos.stream()
+        List<Producto> filteredProducts = productos.stream()
                 .filter(producto -> producto.getCategoria().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
 
-    private void updateGridPane(List<ProductoVenta> products) {
+    private void updateGridPane(List<Producto> products) {
         if (products == null || products.isEmpty()) {
             return;
         }
@@ -237,8 +235,8 @@ public class FacturacionController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            List<ProductoVenta> productosFiltrados = products.stream().filter(Producto::isProduct).toList();
-            for (ProductoVenta product : productosFiltrados) {
+            List<Producto> productosFiltrados = products.stream().filter(Producto::isProduct).toList();
+            for (Producto product : productosFiltrados) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
@@ -262,12 +260,12 @@ public class FacturacionController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    private List<ProductoVenta> data() {
+    private List<Producto> data() {
         return repoPv.findall();
     }
-    public void addOrUpdateProducto(ProductoVenta producto) {
+    public void addOrUpdateProducto(Producto producto) {
         boolean exists = false;
-        for (ProductoVenta existingProducto : observablePvList) {
+        for (Producto existingProducto : observablePvList) {
             if (existingProducto.getId() == producto.getId()) {
                 existingProducto.setCantidad(existingProducto.getCantidad() + 1);
                 existingProducto.setSubtotal(existingProducto.getSubtotal() + producto.getPrecio());
@@ -285,7 +283,7 @@ public class FacturacionController implements Initializable {
     }
     @FXML
     private void handleFacturar() {
-        List<ProductoVenta> listaFacturar = new ArrayList<>(tableView.getItems());
+        List<Producto> listaFacturar = new ArrayList<>(tableView.getItems());
         ContadorFacturasController contadorFactura = new ContadorFacturasController();
         FechaFormato fm = new FechaFormato();
         String fechaFormateada = fm.getFechaFormateada();
@@ -293,7 +291,7 @@ public class FacturacionController implements Initializable {
         contadorFactura.incrementarFactura();
         Factura fc = new Factura(NumeroFactura, "6/26/2024");
 
-        for (ProductoVenta producto : listaFacturar) {
+        for (Producto producto : listaFacturar) {
             long id = producto.getId();
             String descripcion = producto.getDescripcion();
             int cantidad = producto.getCantidad();
@@ -306,12 +304,12 @@ public class FacturacionController implements Initializable {
     }
 
     private void updateTotal() {
-        total = observablePvList.stream().mapToDouble(ProductoVenta::getSubtotal).sum();
+        total = observablePvList.stream().mapToDouble(Producto::getSubtotal).sum();
         LbTotal.setText("$ " + formatNumber(total));
     }
 
     private void eliminarProductoSeleccionado() {
-        ProductoVenta selectedProducto = tableView.getSelectionModel().getSelectedItem();
+        Producto selectedProducto = tableView.getSelectionModel().getSelectedItem();
         if (selectedProducto != null) {
             observablePvList.remove(selectedProducto);
             tableView.refresh();

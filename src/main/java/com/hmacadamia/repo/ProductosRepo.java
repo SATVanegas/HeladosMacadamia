@@ -1,6 +1,6 @@
 package com.hmacadamia.repo;
 import com.hmacadamia.pos.CategoriaProducto;
-import com.hmacadamia.pos.ProductoVenta;
+import com.hmacadamia.superclass.Producto;
 import com.hmacadamia.util.ConexionBD;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,20 +9,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
+public class ProductosRepo implements RepositorioGenerico<Producto>{
 
     private Connection getConnection() throws SQLException {
         return ConexionBD.getInstance();
     }
     @Override
-    public List<ProductoVenta> findall() {
-        List<ProductoVenta> pventas = new ArrayList<ProductoVenta>();
+    public List<Producto> findall() {
+        List<Producto> pventas = new ArrayList<Producto>();
 
         try (Statement st = getConnection().createStatement();
              ResultSet rs = st.executeQuery("select * from productos")) {
 
             while (rs.next()) {
-                ProductoVenta pventa = getPVenta(rs);
+                Producto pventa = getPVenta(rs);
                 pventas.add(pventa);
             }
 
@@ -34,12 +34,12 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
     }
 
     @Override
-    public ProductoVenta searchById(Long id) {
+    public Producto searchById(Long id) {
         return null;
     }
 
     @Override
-    public ProductoVenta searchById(List<ProductoVenta> l, Long id) {
+    public Producto searchById(List<Producto> l, Long id) {
         int left = 0;
         int right = l.size() - 1;
 
@@ -61,7 +61,7 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
 
 
     @Override
-    public void save(ProductoVenta productosRepo) {
+    public void save(Producto productosRepo) {
 
     }
 
@@ -70,8 +70,8 @@ public class ProductosRepo implements RepositorioGenerico<ProductoVenta>{
 
     }
 
-    private ProductoVenta getPVenta(ResultSet rs) throws SQLException {
-        ProductoVenta pventa = new ProductoVenta();
+    private Producto getPVenta(ResultSet rs) throws SQLException {
+        Producto pventa = new Producto();
         pventa.setId(rs.getInt("id"));
         pventa.setDescripcion(rs.getString("descripcion"));
         pventa.setPrecio(rs.getDouble("price"));

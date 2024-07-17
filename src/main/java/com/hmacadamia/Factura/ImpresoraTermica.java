@@ -1,7 +1,7 @@
 package com.hmacadamia.Factura;
 
 import com.hmacadamia.pos.Factura;
-import com.hmacadamia.pos.ProductoVenta;
+import com.hmacadamia.superclass.Producto;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -61,7 +61,7 @@ public class ImpresoraTermica {
             // Configuración del formato numérico para precio y subtotal
             NumberFormat numberFormatter = NumberFormat.getNumberInstance(new Locale("es", "CO"));
 
-            for (ProductoVenta item : factura.getItems()) {
+            for (Producto item : factura.getItems()) {
                 double subtotal = item.getPrecio() * item.getCantidad();
                 table.addCell(new Paragraph(item.getDescripcion()).setFontSize(8));
                 table.addCell(new Paragraph(String.valueOf(item.getCantidad())).setFontSize(8));

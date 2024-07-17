@@ -1,5 +1,7 @@
 package com.hmacadamia.pos;
 
+import com.hmacadamia.superclass.Producto;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ import java.util.List;
 public class Factura {
     private String numeroFactura;
     private String fecha;
-    private List<ProductoVenta> items;
+    private List<Producto> items;
     private double total;
 
     public Factura(String numeroFactura, String fecha) {
@@ -21,7 +23,7 @@ public class Factura {
     }
 
     public void agregarItem(int id, String descripcion, int cantidad, double precioUnitario, double subtotal) {
-        ProductoVenta item = new ProductoVenta(id,descripcion, precioUnitario, cantidad);
+        Producto item = new Producto(id,descripcion, precioUnitario, cantidad);
         items.add(item);
         total += subtotal;
     }
@@ -42,7 +44,7 @@ public class Factura {
     }
 
 
-    public List<ProductoVenta> getItems() {
+    public List<Producto> getItems() {
         return items;
     }
 
@@ -66,7 +68,7 @@ public class Factura {
         sb.append("Descripcion       Cant Precio Subtotal\n");
         sb.append("-------------------------------\n");
 
-        for (ProductoVenta item : items) {
+        for (Producto item : items) {
             double subtotal = item.getPrecio() * item.getCantidad();
             sb.append(String.format("%-15s %3d %8.2f %9.2f\n",
                     item.getDescripcion(), item.getCantidad(), item.getPrecio(), subtotal));

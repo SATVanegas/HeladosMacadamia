@@ -1,5 +1,4 @@
 package com.hmacadamia.controllers;
-import com.hmacadamia.pos.ProductoVenta;
 import com.hmacadamia.repo.ProductosRepo;
 import com.hmacadamia.repo.RepositorioGenerico;
 import com.hmacadamia.superclass.Producto;
@@ -12,7 +11,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,8 +32,8 @@ public class InventarioController implements Initializable {
     @FXML
     private ListView<String> suggestionsList;
 
-    protected static List<ProductoVenta> productos;
-    private final RepositorioGenerico<ProductoVenta> repoPv = new ProductosRepo();
+    protected static List<Producto> productos;
+    private final RepositorioGenerico<Producto> repoPv = new ProductosRepo();
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,7 +43,7 @@ public class InventarioController implements Initializable {
         showAllProducts();
     }
 
-    private List<ProductoVenta> data() {
+    private List<Producto> data() {
         return repoPv.findall();
     }
 
@@ -54,7 +52,7 @@ public class InventarioController implements Initializable {
         updateGridPane(productos);
     }
     //poner los productos dentro del gridpane
-    private void updateGridPane(List<ProductoVenta> products) {
+    private void updateGridPane(List<Producto> products) {
         if (products == null || products.isEmpty()) {
             return; // No hacer nada si la lista de productos está vacía o es nula
         }
@@ -65,8 +63,8 @@ public class InventarioController implements Initializable {
         int columns = 0;
         int rows = 1;
         try {
-            List<ProductoVenta> productosFiltrados = products.stream().filter(productoVenta -> !productoVenta.isProduct()).toList();
-            for (ProductoVenta product : productosFiltrados) {
+            List<Producto> productosFiltrados = products.stream().filter(productoVenta -> !productoVenta.isProduct()).toList();
+            for (Producto product : productosFiltrados) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
@@ -150,7 +148,7 @@ public class InventarioController implements Initializable {
             return; // No hacer nada si la lista de productos está vacía o es nula
         }
 
-        List<ProductoVenta> filteredProducts = productos.stream()
+        List<Producto> filteredProducts = productos.stream()
                 .filter(producto -> (producto.getDescripcion()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
