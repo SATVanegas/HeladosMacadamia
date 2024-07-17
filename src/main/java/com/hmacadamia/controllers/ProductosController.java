@@ -31,13 +31,13 @@ public class ProductosController implements Initializable {
     @FXML
     private Label lblPrecio;
     public int modelEmisor;
-    private HmPrincipalController principalController;
+    private FacturacionController principalController;
     private InventarioController inventarioController;
 
     private final RepositorioGenerico<ProductoVenta> repoProductos = new ProductosRepo();
 
     // Método para establecer el controlador principal
-    public void setPrincipalController(HmPrincipalController controller) {
+    public void setPrincipalController(FacturacionController controller) {
         this.principalController = controller;
     }
 
@@ -76,13 +76,13 @@ public class ProductosController implements Initializable {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             long productoId = Long.parseLong(lbID.getText());
             System.out.println(lbID.getText());
-            ProductoVenta ss = repoProductos.searchById(HmPrincipalController.productos, productoId);
+            ProductoVenta ss = repoProductos.searchById(FacturacionController.productos, productoId);
             modelEmisor = ss.isProduct() ? 0 : 1;
             System.out.println(modelEmisor);
 
             switch (modelEmisor) {
                 case 0:
-                    ProductoVenta pv = repoProductos.searchById(HmPrincipalController.productos, productoId);
+                    ProductoVenta pv = repoProductos.searchById(FacturacionController.productos, productoId);
                     if (pv != null && principalController != null) {
                         // Añadir o actualizar el producto en el controlador principal
                         principalController.addOrUpdateProducto(pv);
