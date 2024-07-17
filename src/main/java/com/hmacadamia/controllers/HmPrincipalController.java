@@ -299,7 +299,8 @@ public class HmPrincipalController implements Initializable {
         ContadorFacturasController contadorFactura = new ContadorFacturasController();
         FechaFormato fm = new FechaFormato();
         String fechaFormateada = fm.getFechaFormateada();
-        String NumeroFactura = fechaFormateada.concat(String.valueOf(contadorFactura.consultarFactura()));
+        String NumeroFactura = fechaFormateada.concat("-")
+                .concat(String.valueOf(contadorFactura.consultarFactura()));
         contadorFactura.incrementarFactura();
         Factura fc = new Factura(NumeroFactura, "6/26/2024");
 

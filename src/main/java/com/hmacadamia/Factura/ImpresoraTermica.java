@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class ImpresoraTermica {
 
-    private final int tamanoCostante = 120;
+    private final int tamanoCostante = 95;
     private final String EMAILINTFINITY = "soluciones@intfinity.co";
 
 
@@ -42,12 +42,13 @@ public class ImpresoraTermica {
             // Márgenes pequeños
 
             // Añadir el contenido al PDF con una fuente más pequeña
-            document.add(new Paragraph("Empresa: Chips Love").setFontSize(12));
-            document.add(new Paragraph("Nit: *******").setFontSize(8));
-            document.add(new Paragraph("Factura No: " + factura.getNumeroFactura()).setFontSize(8));
-            document.add(new Paragraph("Fecha: " + factura.getFecha()).setFontSize(8));
-            document.add(new Paragraph("Direccion: Copacabana-Antioquia").setFontSize(8));
-            document.add(new Paragraph("----------------------------------------").setFontSize(8));
+            document.add(new Paragraph("Empresa: Chips Love").setFontSize(12).setFixedLeading(5));
+            document.add(new Paragraph("Nit: *******").setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("Factura No: " + factura.getNumeroFactura()).setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("Fecha: " + factura.getFecha()).setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("Direccion: Copacabana-Antioquia").setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("----------------------------------------").setFontSize(8).setFixedLeading(10));
+
 
             // Tabla para los artículos
             float[] columnWidths = {3, 1, 2, 2}; // Ajustar anchos de columna
@@ -74,16 +75,16 @@ public class ImpresoraTermica {
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
 
             // Subtotal y Total
-            document.add(new Paragraph("----------------------------------------").setFontSize(8));
-            document.add(new Paragraph("Total: " + currencyFormatter.format(factura.getTotal())).setFontSize(14));
-            document.add(new Paragraph("----------------------------------------").setFontSize(8));
-            document.add(new Paragraph(factura.getFecha()).setFontSize(8));
-            document.add(new Paragraph("Impreso por software administrativo Intfinity Brics").setFontSize(8));
-            document.add(new Paragraph(EMAILINTFINITY).setFontSize(8));
+            document.add(new Paragraph("----------------------------------------").setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("Total: " + currencyFormatter.format(factura.getTotal())).setFontSize(14).setFixedLeading(5));
+            document.add(new Paragraph("----------------------------------------").setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph(factura.getFecha()).setFontSize(8).setFixedLeading(5));
+            document.add(new Paragraph("Impreso por software administrativo: Intfinity Brick").setFontSize(6).setFixedLeading(5));
+            document.add(new Paragraph("Email: " + EMAILINTFINITY).setFontSize(8).setFixedLeading(10));
 
             ImageData imageData = ImageDataFactory.create(imagePath);
             Image image = new Image(imageData);
-            image.setWidth(30);
+            image.setWidth(50);
             image.setHorizontalAlignment(HorizontalAlignment.CENTER);// Ajusta el tamaño de la imagen según sea necesario
             document.add(image);
 
