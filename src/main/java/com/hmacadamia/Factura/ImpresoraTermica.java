@@ -2,83 +2,33 @@ package com.hmacadamia.Factura;
 
 import com.hmacadamia.pos.Factura;
 import com.hmacadamia.pos.ProductoVenta;
-import com.itextpdf.io.font.constants.StandardFonts;
-import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.UnitValue;
-
-import javax.print.*;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class ImpresoraTermica {
 
-    private final int tamanoCostante = 100;
+    private final int tamanoCostante = 120;
+    private final String EMAILINTFINITY = "soluciones@intfinity.co";
 
-    public void imprimir(String texto) {
-        try {
-            // Asegúrate de que el texto esté formateado adecuadamente
-            InputStream is = new ByteArrayInputStream(texto.getBytes(StandardCharsets.UTF_8));
-            DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-            PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-            PrintService[] printService = PrintServiceLookup.lookupPrintServices(flavor, pras);
-            PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-
-            if (printService.length == 0) {
-                if (defaultService == null) {
-                    System.err.println("No se encontraron impresoras.");
-                    return;
-                } else {
-                    defaultService.createPrintJob().print(new SimpleDoc(is, flavor, null), null);
-                }
-            } else {
-                PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
-                if (service != null) {
-                    service.createPrintJob().print(new SimpleDoc(is, flavor, null), null);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void generarPDF(String texto) {
-        String destino = "src/main/resources/com/PDF/factura.pdf";
-        try {
-            File file = new File(destino);
-            file.getParentFile().mkdirs(); // Crear directorios si no existen
-
-            PdfWriter writer = new PdfWriter(destino);
-            PdfDocument pdfDoc = new PdfDocument(writer);
-            Document document = new Document(pdfDoc);
-
-            // Agregar el texto al documento PDF
-            document.add(new Paragraph(texto)
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
-                    .setFontSize(12)
-                    .setFontColor(new DeviceRgb(0, 0, 0))); // Texto en color negro
-
-            document.close();
-            System.out.println("PDF generado en: " + destino);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void generarPDFTer(Factura factura) {
         String dest = "src/main/resources/com/PDF/factura #-" +factura.getNumeroFactura() +".pdf";
+        String imagePath = "src/main/resources/com/Logos/intfinity.png";
         int numeroitems = factura.getCantidadItems();
 
         try {
+
             PdfWriter writer = new PdfWriter(new FileOutputStream(dest));
             PdfDocument pdf = new PdfDocument(writer);
 
@@ -88,7 +38,8 @@ public class ImpresoraTermica {
             pdf.setDefaultPageSize(new com.itextpdf.kernel.geom.PageSize(width, height));
 
             Document document = new Document(pdf);
-            document.setMargins(5, 5, 5, 5); // Márgenes pequeños
+            document.setMargins(5, 5, 5, 5);
+            // Márgenes pequeños
 
             // Añadir el contenido al PDF con una fuente más pequeña
             document.add(new Paragraph("Empresa: Chips Love").setFontSize(12));
@@ -127,6 +78,15 @@ public class ImpresoraTermica {
             document.add(new Paragraph("Total: " + currencyFormatter.format(factura.getTotal())).setFontSize(14));
             document.add(new Paragraph("----------------------------------------").setFontSize(8));
             document.add(new Paragraph(factura.getFecha()).setFontSize(8));
+            document.add(new Paragraph("Impreso por software administrativo Intfinity Brics").setFontSize(8));
+            document.add(new Paragraph(EMAILINTFINITY).setFontSize(8));
+
+            ImageData imageData = ImageDataFactory.create(imagePath);
+            Image image = new Image(imageData);
+            image.setWidth(30);
+            image.setHorizontalAlignment(HorizontalAlignment.CENTER);// Ajusta el tamaño de la imagen según sea necesario
+            document.add(image);
+
 
             // Cerrar el documento para obtener la altura total del contenido
             document.close();

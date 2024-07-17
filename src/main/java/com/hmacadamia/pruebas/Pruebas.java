@@ -17,7 +17,6 @@ public class Pruebas {
 
             repoclientes.findall().forEach(System.out::println);
             ImpresoraTermica imp = new ImpresoraTermica();
-            imp.imprimir("Nicolas es marica");
             System.out.println("hi");
 
 
