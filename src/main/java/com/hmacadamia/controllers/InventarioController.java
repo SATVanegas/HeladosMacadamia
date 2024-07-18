@@ -69,9 +69,9 @@ public class InventarioController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
                 VBox productosBox = fxmlLoader.load();
-                ProductosController productosController = fxmlLoader.getController();
-                productosController.setInventarioController(this); // Pasar referencia al controlador principal
-                productosController.setData(product);
+                ProductosVistaController productosVistaController = fxmlLoader.getController();
+                productosVistaController.setInventarioController(this); // Pasar referencia al controlador principal
+                productosVistaController.setData(product);
 
                 if (columns == 3) {
                     columns = 0;

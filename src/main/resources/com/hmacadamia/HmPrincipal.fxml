@@ -22,10 +22,10 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.HmPrincipalController">
     <TabPane prefHeight="768.0" prefWidth="1366.0" tabClosingPolicy="UNAVAILABLE">
         <Tab text="Facturacion">
-          <fx:include source="Facturacion.fxml"/>
+          <fx:include source="Facturacion/Facturacion.fxml"/>
         </Tab>
         <Tab text="Inventario">
-            <fx:include source="TabInventario.fxml" />
+            <fx:include source="Inventario/TabInventario.fxml" />
         </Tab>
         <Tab text="Creacion de gastos">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -39,7 +39,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />
          </content></Tab>
       <Tab text="Clientes">
-          <fx:include source="Clientes.fxml" />
+          <fx:include source="Clientes/Clientes.fxml" />
       </Tab>
     </TabPane>
 </Pane>

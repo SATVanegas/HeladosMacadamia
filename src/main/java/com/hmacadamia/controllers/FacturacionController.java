@@ -62,11 +62,11 @@ public class FacturacionController implements Initializable {
     @FXML
     private ComboBox<String> Cbcategoria;
 
-    protected static List<Producto> productos;
+    protected static List<Producto> productsCopyLocal;
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
     private final ObservableList<Producto> observablePvList = FXCollections.observableArrayList();
-    RepositorioGenerico<Producto> repoPv = new ProductosRepo();
-    private double total = 0.0;
+    RepositorioGenerico<Producto> repoProduct = new ProductosRepo();
+    private double totalGeneral = 0.0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,7 +74,7 @@ public class FacturacionController implements Initializable {
         setupSuggestionsListListener();
         setupCategoryComboBoxListener();
         setupCategoryComboBoxItems();
-        productos = new ArrayList<>(data());
+        productsCopyLocal = new ArrayList<>(data());
         showAllProducts();
         ColumCodigo.setCellValueFactory(new PropertyValueFactory<>("id"));
         ColumDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
@@ -141,7 +141,7 @@ public class FacturacionController implements Initializable {
                 showAllProducts();
                 suggestionsList.setVisible(false);
             } else {
-                List<String> filtered = productos.stream()
+                List<String> filtered = productsCopyLocal.stream()
                         .map(Producto::getDescripcion)
                         .filter(id -> id.toLowerCase().startsWith(newValue.toLowerCase()))
                         .collect(Collectors.toList());
@@ -185,7 +185,7 @@ public class FacturacionController implements Initializable {
         Cbcategoria.setItems(FXCollections.observableArrayList(categories));
     }
     private void showAllProducts() {
-        updateGridPane(productos);
+        updateGridPane(productsCopyLocal);
     }
 
     private void setupSuggestionsListListener() {
@@ -211,15 +211,15 @@ public class FacturacionController implements Initializable {
             return;
         }
 
-        List<Producto> filteredProducts = productos.stream()
-                .filter(producto -> producto.getDescripcion().toLowerCase().contains(query.toLowerCase()))
+        List<Producto> filteredProducts = productsCopyLocal.stream()
+                .filter(product -> product.getDescripcion().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
 
     private void performCategoryFilter(String category) {
-        List<Producto> filteredProducts = productos.stream()
-                .filter(producto -> producto.getCategoria().equalsIgnoreCase(category))
+        List<Producto> filteredProducts = productsCopyLocal.stream()
+                .filter(product -> product.getCategoria().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
     }
@@ -241,9 +241,9 @@ public class FacturacionController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("/com/hmacadamia/Productos.fxml"));
 
                 VBox productosBox = fxmlLoader.load();
-                ProductosController productosController = fxmlLoader.getController();
-                productosController.setPrincipalController(this);
-                productosController.setData(product);
+                ProductosVistaController productosVistaController = fxmlLoader.getController();
+                productosVistaController.setPrincipalController(this);
+                productosVistaController.setData(product);
 
                 if (columns == 3) {
                     columns = 0;
@@ -261,7 +261,7 @@ public class FacturacionController implements Initializable {
         }
     }
     private List<Producto> data() {
-        return repoPv.findall();
+        return repoProduct.findall();
     }
     public void addOrUpdateProducto(Producto producto) {
         boolean exists = false;
@@ -305,8 +305,8 @@ public class FacturacionController implements Initializable {
     }
 
     private void updateTotal() {
-        total = observablePvList.stream().mapToDouble(Producto::getSubtotal).sum();
-        LbTotal.setText("$ " + formatNumber(total));
+        totalGeneral = observablePvList.stream().mapToDouble(Producto::getSubtotal).sum();
+        LbTotal.setText("$ " + formatNumber(totalGeneral));
     }
 
     private void eliminarProductoSeleccionado() {
@@ -328,7 +328,7 @@ public class FacturacionController implements Initializable {
         }
         try {
             double number = Double.parseDouble(text);
-            double vdevuelta = (number - getTotal());
+            double vdevuelta = (number - getTotalGeneral());
             LbCambio.setText("$ " + formatNumber(vdevuelta));
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -338,8 +338,8 @@ public class FacturacionController implements Initializable {
         }
     }
 
-    public double getTotal() {
-        return total;
+    public double getTotalGeneral() {
+        return totalGeneral;
     }
 }
 

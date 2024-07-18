@@ -6,7 +6,7 @@
 
 <?import java.lang.String?>
 <AnchorPane prefHeight="733.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.FacturacionController">
-    <TableView fx:id="tableView" editable="true" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Styles/Stilosbotones.css">
+    <TableView fx:id="tableView" editable="true" layoutX="750.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../Styles/Stilosbotones.css">
         <columns>
             <TableColumn fx:id="ColumCodigo" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="Codigo" />
             <TableColumn fx:id="ColumDescripcion" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" text="Descripcion" />
@@ -15,12 +15,12 @@
             <TableColumn fx:id="ColumSubtotal" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Total" />
         </columns>
     </TableView>
-    <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" styleClass="button2" stylesheets="@../Styles/Stilosbotones.css" text="Eliminar">
+    <Button fx:id="btnDelete" layoutX="750.0" layoutY="448.0" mnemonicParsing="false" styleClass="button2" stylesheets="@../../Styles/Stilosbotones.css" text="Eliminar">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
     </Button>
-    <Button layoutX="1262.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleFacturar" styleClass="button2" stylesheets="@../Styles/Stilosbotones.css" text="Facturar">
+    <Button layoutX="1262.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleFacturar" styleClass="button2" stylesheets="@../../Styles/Stilosbotones.css" text="Facturar">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>
@@ -45,7 +45,7 @@
             </GridPane>
         </ScrollPane>
     </GridPane>
-    <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="59.0" prefWidth="356.0" promptText="Buscar" styleClass="custom-text-field" stylesheets="@../Styles/Stilosbotones.css" />
+    <TextField fx:id="txtBuscadorF" layoutX="33.0" layoutY="41.0" prefHeight="59.0" prefWidth="356.0" promptText="Buscar" styleClass="custom-text-field" stylesheets="@../../Styles/Stilosbotones.css" />
     <ListView fx:id="suggestionsList" layoutX="33.0" layoutY="79.0" prefHeight="39.0" prefWidth="179.0" visible="false" />
     <Label fx:id="LbTotal" layoutX="1095.0" layoutY="543.0" prefHeight="42.0" prefWidth="253.0">
         <font>
@@ -62,7 +62,7 @@
             <Font name="System Bold" size="30.0" />
         </font>
     </Label>
-    <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad" styleClass="custom-text-field" stylesheets="@../Styles/Stilosbotones.css">
+    <TextField fx:id="txtRecibe" layoutX="1095.0" layoutY="477.0" prefHeight="51.0" prefWidth="255.0" promptText="Ingrese la cantidad" styleClass="custom-text-field" stylesheets="@../../Styles/Stilosbotones.css">
         <font>
             <Font name="System Bold" size="24.0" />
         </font>
@@ -72,7 +72,7 @@
             <Font name="System Bold" size="24.0" />
         </font>
     </Label>
-    <ComboBox fx:id="Cbcategoria" layoutX="437.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" stylesheets="@../Styles/Stilosbotones.css">
+    <ComboBox fx:id="Cbcategoria" layoutX="437.0" layoutY="40.0" prefHeight="40.0" prefWidth="150.0" promptText="Categoria" stylesheets="@../../Styles/Stilosbotones.css">
         <styleClass>
             <String fx:value="custom-combo-box" />
             <String fx:value="list-cell" />

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hmacadamia.controllers.ContadorFacturasController">
+    <TableView prefHeight="400.0" prefWidth="600.0">
+      <columns>
+          <TableColumn prefWidth="249.0" text="Nombre"/>
+          <TableColumn prefWidth="139.0" text="Compras"/>
+          <TableColumn prefWidth="211.0" text="Importe"/>
+      </columns>
+    </TableView>
+</AnchorPane>

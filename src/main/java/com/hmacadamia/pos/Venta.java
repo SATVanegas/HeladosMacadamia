@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Venta {
+public class    Venta {
 
     private Integer id;
     private Date fecha;

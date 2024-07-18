@@ -15,7 +15,7 @@ import java.text.NumberFormat;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class ProductosController implements Initializable {
+public class ProductosVistaController implements Initializable {
     @FXML
     private ImageView image;
 
@@ -76,13 +76,13 @@ public class ProductosController implements Initializable {
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             long productoId = Long.parseLong(lbID.getText());
             System.out.println(lbID.getText());
-            Producto ss = repoProductos.searchById(FacturacionController.productos, productoId);
+            Producto ss = repoProductos.searchById(FacturacionController.productsCopyLocal, productoId);
             modelEmisor = ss.isProduct() ? 0 : 1;
             System.out.println(modelEmisor);
 
             switch (modelEmisor) {
                 case 0:
-                    Producto pv = repoProductos.searchById(FacturacionController.productos, productoId);
+                    Producto pv = repoProductos.searchById(FacturacionController.productsCopyLocal, productoId);
                     if (pv != null && principalController != null) {
                         // Añadir o actualizar el producto en el controlador principal
                         principalController.addOrUpdateProducto(pv);

@@ -2,7 +2,6 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="739.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hmacadamia.controllers.ClientesController">
-
+<fx:include layoutX="770.0" layoutY="70.0" source="TableCliente.fxml" />
 </AnchorPane>
