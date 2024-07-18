@@ -10,12 +10,17 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +37,9 @@ public class InventarioController implements Initializable {
     @FXML
     private ListView<String> suggestionsList;
 
+    @FXML
+    private Button btnAgregar;
+
     protected static List<Producto> productos;
     private final RepositorioGenerico<Producto> repoPv = new ProductosRepo();
     private final ObservableList<String> suggestions = FXCollections.observableArrayList();
@@ -41,6 +49,7 @@ public class InventarioController implements Initializable {
         setupSearchFieldListener();
         setupSuggestionsListListener();
         showAllProducts();
+        btnAgregar.setOnAction(event -> openWindow());
     }
 
     private List<Producto> data() {
@@ -152,5 +161,21 @@ public class InventarioController implements Initializable {
                 .filter(producto -> (producto.getDescripcion()).toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
         updateGridPane(filteredProducts);
+    }
+
+    private void openWindow(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hmacadamia/addWindow.fxml"));
+            Parent addWindowRoot = loader.load();
+            Scene addWindowScene = new Scene(addWindowRoot);
+
+            Stage addWindow = new Stage();
+            addWindow.initModality(Modality.APPLICATION_MODAL);
+            addWindow.setTitle("Añadir Producto");
+            addWindow.setScene(addWindowScene);
+            addWindow.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
