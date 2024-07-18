@@ -86,6 +86,7 @@ public class ProductosController implements Initializable {
                     if (pv != null && principalController != null) {
                         // Añadir o actualizar el producto en el controlador principal
                         principalController.addOrUpdateProducto(pv);
+                        principalController.handleEnterKey();
                     } else {
                         System.out.println("Producto no encontrado o controlador principal no establecido.");
                     }

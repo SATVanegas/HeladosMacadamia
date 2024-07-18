@@ -277,6 +277,7 @@ public class FacturacionController implements Initializable {
             producto.setCantidad(1);
             producto.setSubtotal(producto.getPrecio());
             observablePvList.add(producto);
+            handleEnterKey();
         }
         tableView.refresh();
         updateTotal();
@@ -318,7 +319,7 @@ public class FacturacionController implements Initializable {
     }
 
     @FXML
-    private void handleEnterKey() {
+    protected void handleEnterKey() {
         String text = txtRecibe.getText().replaceAll(",", "");
         if (text.isEmpty()) {
             // Manejar el caso cuando el campo de texto está vacío
